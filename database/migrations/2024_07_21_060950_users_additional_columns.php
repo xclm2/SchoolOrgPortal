@@ -13,7 +13,7 @@ return new class extends Migration
     {
 		Schema::table('users', function (Blueprint $table) {
 			$table->string('lastname')->after('name')->nullable();
-			$table->enum('type', ['student', 'admin', 'adviser'])->after('phone');
+			$table->enum('type', ['student', 'admin', 'adviser'])->default('student')->after('phone');
 			$table->bigInteger('course_id')->after('type')->nullable();
 		});
     }

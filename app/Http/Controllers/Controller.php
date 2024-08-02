@@ -11,4 +11,10 @@ use Illuminate\Support\Facades\Auth;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function restrictAction($action)
+    {
+        $userType = Auth::user()->getAttribute('type');
+
+    }
 }

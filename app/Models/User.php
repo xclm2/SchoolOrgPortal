@@ -11,6 +11,15 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    const STATUS_PENDING = 'pending';
+    const STATUS_ACTIVE = 'active';
+    const STATUS_INACTIVE = 'inactive';
+
+    const STATUSES = [
+        self::STATUS_PENDING,
+        self::STATUS_ACTIVE,
+        self::STATUS_INACTIVE,
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -44,5 +53,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
 }

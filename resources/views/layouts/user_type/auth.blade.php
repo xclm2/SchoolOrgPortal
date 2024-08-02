@@ -4,61 +4,41 @@
 @section('auth')
     @switch($user->getAttribute('type'))
         @case('admin')
-            @include('layouts.navbars.auth.sidebar')
+            <?php $sideBar = 'layouts.navbars.auth.sidebar'; ?>
+            <?php $navBar  = 'layouts.navbars.auth.nav'; ?>
             @break;
-        @case('student')
-        @break;
         @case('adviser')
-            @include('layouts.navbars.auth.nav-adviser')
-        @break;
-
+            <?php $sideBar = 'layouts.navbars.auth.adviser-sidebar'; ?>
+            <?php $navBar  = 'layouts.navbars.auth.nav'; ?>
+            @break;
         @default
+            <?php $sideBar = 'layouts.navbars.auth.student-sidebar'; ?>
+            <?php $navBar  = 'layouts.navbars.auth.nav-student'; ?>
            @break;
     @endswitch
 
 
-    @if(\Request::is('static-sign-up')) 
+    @if(\Request::is('static-sign-up'))
         @include('layouts.navbars.guest.nav')
-        @yield('content')
         @include('layouts.footers.guest.footer')
-    
-    @elseif (\Request::is('static-sign-in')) 
+
+    @elseif (\Request::is('static-sign-in'))
         @include('layouts.navbars.guest.nav')
             @yield('content')
         @include('layouts.footers.guest.footer')
-    
     @else
-        @if (\Request::is('rtl'))  
-            @include('layouts.navbars.auth.sidebar-rtl')
-            <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg overflow-hidden">
-                @include('layouts.navbars.auth.nav-rtl')
-                <div class="container-fluid py-4">
-                    @yield('content')
-                    @include('layouts.footers.auth.footer')
-                </div>
-            </main>
-
-        @elseif (\Request::is('profile'))  
-            @include('layouts.navbars.auth.sidebar')
-            <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
-                @include('layouts.navbars.auth.nav')
+        @include($sideBar)
+        <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg {{ (Request::is('rtl') ? 'overflow-hidden' : '') }}">
+            @include($navBar)
+            <div class="container-fluid py-4">
                 @yield('content')
+                @include('layouts.footers.auth.footer')
             </div>
-
-        @else
-            @include('layouts.navbars.auth.sidebar')
-            <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg {{ (Request::is('rtl') ? 'overflow-hidden' : '') }}">
-                @include('layouts.navbars.auth.nav')
-                <div class="container-fluid py-4">
-                    @yield('content')
-                    @include('layouts.footers.auth.footer')
-                </div>
-            </main>
-        @endif
+        </main>
 
         @include('components.fixed-plugin')
     @endif
 
-    
+
 
 @endsection

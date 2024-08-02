@@ -1,13 +1,17 @@
 <?php
 
+use App\Http\Controllers\Admin\OrgController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,32 +25,47 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('/counter', \App\Livewire\Counter::class);
 Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('/', function () {
+            if (Auth::user()->getAttribute('type') != 'admin') {
+                return redirect('/');
+            }
+
+            return view('dashboard');
+        })->name('dashboard');
+
+        Route::resource('user', UserController::class);
+        Route::resource('organization', OrgController::class);
+    });
 
     Route::get('/', [HomeController::class, 'home']);
-	Route::get('dashboard', function () {
-//		$user = \Illuminate\Support\Facades\Auth::user();
-//		print_r($user->getAttribute('type'));
-//		exit;
-		return view('dashboard');
-	})->name('dashboard');
+    Route::get('post/{id}', [PostController::class, 'index']);
+    Route::resource('profile', ProfileController::class);
 
 	Route::get('billing', function () {
 		return view('billing');
 	})->name('billing');
 
-	Route::get('profile', function () {
-		return view('profile');
-	})->name('profile');
-
 	Route::get('rtl', function () {
 		return view('rtl');
 	})->name('rtl');
 
-	Route::get('user-management', function () {
-		return view('laravel-examples/user-management');
-	})->name('user-management');
+    /** USER MANAGEMENT */
+    Route::get('find-phone', function (Request $request) {
+        if (! $request->ajax()) {
+            // send
+        }
+    });
+
+    Route::get('find-email', function (Request $request) {
+        if (! $request->ajax()) {
+            // send
+        }
+    });
+    /** END USER MANAGEMENT */
+
 
 	Route::get('tables', function () {
 		return view('tables');
