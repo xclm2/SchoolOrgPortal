@@ -36,27 +36,22 @@
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <!-- Nucleo Icons -->
     <link href="{{ URL::asset('/assets/css/nucleo-icons.css') }} " rel="stylesheet" />
     <link href="{{ URL::asset('/assets/css/nucleo-svg.css') }} " rel="stylesheet" />
 
   <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="{{ URL::asset('/assets/css/nucleo-svg.css') }} " rel="stylesheet" />
 
     <!-- CSS Files -->
     <link id="pagestyle" href="{{URL::asset('/assets/css/soft-ui-dashboard.css')}}" rel="stylesheet" />
     <link id="pagestyle" href="{{URL::asset('/css/app.css')}}" rel="stylesheet" />
+    <script src="{{ URL::asset('/assets/js/jQuery.js') }}" type="text/javascript"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100 {{ (\Request::is('rtl') ? 'rtl' : (Request::is('virtual-reality') ? 'virtual-reality' : '')) }} ">
-  @auth
-    @yield('auth')
-  @endauth
-  @guest
-    @yield('guest')
-  @endguest
-
+@extends('layouts.user_type.auth')
   @if(session()->has('success'))
     <div x-data="{ show: true}"
         x-init="setTimeout(() => show = false, 4000)"
@@ -84,12 +79,12 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
+@livewireScripts
 
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{{ URL::asset('/assets/js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
-  @livewireScripts
+  <script src="{{ URL::asset('/assets/js/soft-ui-dashboard.min.js?v=1.0.3') }}" data-navigate-track data-navigate-once></script>
 </body>
 
 </html>

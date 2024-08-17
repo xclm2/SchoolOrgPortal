@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Organization\Member as OrganizationMember;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -14,6 +16,9 @@ class User extends Authenticatable
     const STATUS_PENDING = 'pending';
     const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
+    const ROLE_ADMIN = 'admin';
+    const ROLE_STUDENT = 'student';
+    const ROLE_ADVISER = 'adviser';
 
     const STATUSES = [
         self::STATUS_PENDING,
@@ -33,6 +38,7 @@ class User extends Authenticatable
         'phone',
         'location',
         'about_me',
+        'role',
     ];
 
     /**
@@ -54,4 +60,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getMember()
+    {
+        return $this->hasOne(OrganizationMember::class)->first();
+    }
+
+    public function getOrganization(): Organization
+    {
+        if ($member = $this->getMember()) {
+            return Organization::find($member->organization_id)->first();
+        }
+
+        return new Organization();
+    }
+
+    public function getFullname()
+    {
+        return $this->name . ' ' . $this->lastname;
+    }
 }

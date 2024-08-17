@@ -1,0 +1,39 @@
+.registration .organizations {
+    img.organization-item {
+        border-radius: 100%;
+        filter: grayscale(100%);
+        width: 60px;
+        height: 60px;
+
+        transition: filter 450ms ease;
+        cursor: pointer;
+
+        @include media-breakpoint-up(lg) {
+            width: 230px;
+            height: 230px;
+        }
+
+        @include media-breakpoint-up(md) {
+            width: 190px;
+            height: 190px;
+        }
+
+        @include media-breakpoint-up(sm) {
+            width: 120px;
+            height: 120px;
+        }
+
+        &:is(:hover, :focus) {
+            filter: grayscale(0%) drop-shadow(0 8px 9px rgba(0, 0, 0, 0.2));
+        }
+    }
+}
+
+.registration {
+
+    p.organization-selected {
+        display: none;
+        width: fit-content;
+        color: $black;
+    }
+}

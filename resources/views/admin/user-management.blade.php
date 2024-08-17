@@ -1,7 +1,3 @@
-@extends('layouts.user_type.auth')
-
-@section('content')
-
 <div>
     <div class="row">
         <div class="col-12">
@@ -11,10 +7,7 @@
                         <div>
                             <h5 class="mb-0">All Users</h5>
                         </div>
-                        <button class="btn bg-gradient-primary btn-sm mb-0"
-                                data-bs-toggle="modal"
-                                data-bs-target="#newUserModal"
-                                type="button">+&nbsp; New User</button>
+                        <a class="btn bg-gradient-primary btn-sm mb-0" type="button" href="/admin/user/create" wire:navigate.hover>+&nbsp; New Adviser</a>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
@@ -31,7 +24,7 @@
                 <div class="modal-body p-0">
                     <div class="card card-plain">
                         <div class="card-header pb-0 text-left">
-                            <h3 class="font-weight-bolder text-primary text-gradient">New User</h3>
+                            <h3 class="font-weight-bolder text-primary text-gradient">Create Adviser</h3>
                         </div>
                         <div class="card-body pb-3">
                             <form role="form text-left">
@@ -47,14 +40,8 @@
                                 <div class="input-group mb-3">
                                     <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
                                 </div>
-                                <div class="form-check form-check-info text-left">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked="">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        I agree the <a href="javascrpt:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
-                                    </label>
-                                </div>
-                                <div class="text-center">
-                                    <button type="button" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Sign up</button>
+                                <div class="text-left">
+                                    <button type="button" class="btn bg-gradient-primary btn-lg w-md-30 w-100 mt-4 mb-0">Create</button>
                                 </div>
                             </form>
                         </div>
@@ -70,5 +57,3 @@
         </div>
     </div>
 </div>
-
-@endsection

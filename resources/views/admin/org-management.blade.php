@@ -1,7 +1,3 @@
-@extends('layouts.user_type.auth')
-
-@section('content')
-
 <div>
     <div class="row">
         <div class="col-12">
@@ -11,7 +7,7 @@
                         <div>
                             <h5 class="mb-0">All Organizations</h5>
                         </div>
-                        <a class="btn bg-gradient-primary btn-sm mb-0" href="organization/create">+&nbsp; New Organization</a>
+                        <a class="btn bg-gradient-primary btn-sm mb-0" href="organization/create" wire:navigate>+&nbsp; New Organization</a>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
@@ -67,5 +63,3 @@
         </div>
     </div>
 </div>
-
-@endsection

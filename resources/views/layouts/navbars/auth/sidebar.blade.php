@@ -1,14 +1,13 @@
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
   <div class="sidenav-header">
-      <img src="/images/logo.png" alt="img-blur-shadow" class="img-fluid">
-
+      <img src="/images/logo.png" alt="img-blur-shadow" class="img-fluid side-nav-logo" id="iconSidenav">
   </div>
   <hr class="horizontal dark mt-0">
   <div class="collapse navbar-collapse  w-auto" id="sidenav-collapse-main">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link {{ (Request::is('dashboard') ? 'active' : '') }}" href="{{ url('dashboard') }}">
+        <a class="nav-link {{ (Request::is('admin') ? 'active' : '') }}" href="{{ url('admin') }}" wire:navigate.hover>
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
               <title>shop </title>
@@ -52,7 +51,7 @@
             <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Management</h6>
         </li>
       <li class="nav-item pb-2">
-        <a class="nav-link {{ (Request::is('user') ? 'active' : '') }}" href="{{ url('admin/user') }}">
+        <a class="nav-link {{ (Request::is('admin/user') ? 'active' : '') }}" href="{{ url('admin/user') }}" wire:navigate.hover>
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center text-dark {{ (Request::is('user') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>
             </div>
@@ -60,7 +59,7 @@
         </a>
       </li>
         <li class="nav-item pb-2">
-            <a class="nav-link {{ (Request::is('admin/organization') ? 'active' : '') }}" href="{{ url('admin/organization') }}">
+            <a class="nav-link {{ (Request::is('admin/organization') ? 'active' : '') }}" href="{{ url('admin/organization') }}" wire:navigate.hover>
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                     <i style="font-size: 1rem;" class="fas fa-lg fa-users ps-2 pe-2 text-center text-dark {{ (Request::is('admin/organization') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>
                 </div>

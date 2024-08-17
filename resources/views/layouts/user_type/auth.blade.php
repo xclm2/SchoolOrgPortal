@@ -1,8 +1,7 @@
 <?php $user = \Illuminate\Support\Facades\Auth::user(); ?>
-@extends('layouts.app')
 
 @section('auth')
-    @switch($user->getAttribute('type'))
+    @switch($user?->getAttribute('role'))
         @case('admin')
             <?php $sideBar = 'layouts.navbars.auth.sidebar'; ?>
             <?php $navBar  = 'layouts.navbars.auth.nav'; ?>

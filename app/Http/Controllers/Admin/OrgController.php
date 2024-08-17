@@ -26,17 +26,17 @@ class OrgController extends Component
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        return view('admin/org-management/create');
-    }
+//    public function create()
+//    {
+//        return view('admin/org-management/create');
+//    }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        return view('admin/org-management/create', ['id' => $id]);
     }
 
     /**

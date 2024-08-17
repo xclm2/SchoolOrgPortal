@@ -674,6 +674,9 @@ let referenceButtons = document.querySelector('[data-class]');
 window.addEventListener("resize", navbarColorOnResize);
 
 function navbarColorOnResize() {
+    if (referenceButtons == null) {
+        return;
+    }
   if (sidenav) {
     if (window.innerWidth > 1200) {
       if (referenceButtons.classList.contains('active') && referenceButtons.getAttribute('data-class') === 'bg-transparent') {

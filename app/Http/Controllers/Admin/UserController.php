@@ -25,19 +25,11 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        // Sms Verification
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        return view('admin/user-management/create');
     }
 
     /**

@@ -12,7 +12,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->getAttribute('type') == 'admin') {
+        if (Auth::user()->getAttribute('role') == 'admin') {
             return redirect('/admin');
         }
 

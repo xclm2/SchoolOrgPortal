@@ -13,7 +13,7 @@ class Table extends Component
     public function render()
     {
         return view ('admin.org-management.component.list', [
-            'organizations' => OrgModel::paginate(1)
+            'organizations' => OrgModel::paginate(10)
         ]);
     }
 }

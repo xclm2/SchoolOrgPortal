@@ -14,7 +14,7 @@ class Controller extends BaseController
 
     public function restrictAction($action)
     {
-        $userType = Auth::user()->getAttribute('type');
+        $userType = Auth::user()->getAttribute('role');
 
     }
 }

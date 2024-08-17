@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Organization\Post;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[Lazy]
 class Organization extends Model
 {
     use HasFactory;
@@ -25,4 +27,18 @@ class Organization extends Model
         'banner',
         'adviser_id',
     ];
+
+    public function getLogo()
+    {
+        return asset("storage/logo/org-{$this->id}.jpg");
+    }
+
+    public function getBanner() {
+        return asset("storage/banner/org-{$this->id}.jpg");
+    }
+
+    public function getPosts()
+    {
+        return Post::where('organization_id', $this->id);
+    }
 }

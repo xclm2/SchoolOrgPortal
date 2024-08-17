@@ -31,7 +31,7 @@
                 </td>
                 <td>
                     <div>
-                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3">
+                        <img src="{{URL::asset("storage/logo/org-$org->id.jpg")}}" class="avatar avatar-sm me-3">
                     </div>
                 </td>
                 <td class="text-center">
@@ -41,18 +41,18 @@
                     <p class="text-xs font-weight-bold mb-0"></p>
                 </td>
                 <td class="text-center">
-                    <p class="text-xs font-weight-bold mb-0">{{$org->status}}</p>
+                    <p class="text-xs font-weight-bold mb-0 text-uppercase">{{$org->status}}</p>
                 </td>
                 <td class="text-center">
                     <p class="text-xs font-weight-bold mb-0">{{$org->created_at}}</p>
                 </td>
                 <td class="text-center">
-                    <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
+                    <a href="{{route('edit-organization', $org->id)}}"
+                       class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Organization" wire:navigate.hover>
                         <i class="fas fa-user-edit text-secondary"></i>
+                        Edit
                     </a>
-                    <span>
-                <i class="cursor-pointer fas fa-trash text-secondary"></i>
-            </span>
+                    <span><i class="cursor-pointer fas fa-trash text-secondary"></i></span>
                 </td>
             </tr>
         @empty
