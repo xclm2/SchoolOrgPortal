@@ -12,21 +12,21 @@
       </span>
     </button>
     <div class="collapse navbar-collapse" id="navigation">
-      <ul class="navbar-nav mx-auto">
+      <ul class="navbar-nav mx-auto d-none">
         <li class="nav-item">
             <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="{{ url('/') }}">
                 <i class="fa fa-chart-pie opacity-6 me-1 {{ (Request::is('static-sign-up') ? '' : 'text-dark') }}"></i>
                 Home
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-none">
             <a class="nav-link me-2" href="{{ url('profile') }}">
                 <i class="fa fa-user opacity-6 me-1 {{ (Request::is('static-sign-up') ? '' : 'text-dark') }}"></i>
                 Organizations
             </a>
         </li>
       </ul>
-      <ul class="navbar-nav d-lg-block d-none">
+      <ul class="navbar-nav d-none">
         <li class="nav-item">
           <a href="{{url('login')}}" class="btn btn-sm btn-round mb-0 me-1 bg-gradient-success">Sign In</a>
         </li>
