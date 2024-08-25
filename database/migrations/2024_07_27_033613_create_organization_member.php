@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('organization_id')->references('id')->on('organization')->onDelete('restrict');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('restrict');
-            $table->string('status');
+            $table->enum('status', ['active', 'pending'])->default('active')->after('phone');
             $table->timestamps();
         });
     }

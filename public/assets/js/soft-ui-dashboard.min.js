@@ -459,7 +459,13 @@ function debounce(func, wait, immediate) {
 
 var total = document.querySelectorAll('.nav-pills');
 
-function initNavs() {
+function initNavsBySelector(selector) {
+    let newElement = document.querySelectorAll(selector);
+    initNavs(newElement);
+}
+
+function initNavs(newElement = null) {
+    total = (newElement === null) ? total : newElement;
   total.forEach(function(item, i) {
     var moving_div = document.createElement('div');
     var first_li = item.querySelector('li:first-child .nav-link');
@@ -636,11 +642,26 @@ if (document.querySelector('.sidenav-toggler')) {
 
 
 // Toggle Sidenav
-const iconNavbarSidenav = document.getElementById('iconNavbarSidenav');
-const iconSidenav = document.getElementById('iconSidenav');
-const sidenav = document.getElementById('sidenav-main');
+let iconNavbarSidenav = document.getElementById('iconNavbarSidenav');
+let iconSidenav = document.getElementById('iconSidenav');
+let sidenav = document.getElementById('sidenav-main');
 let body = document.getElementsByTagName('body')[0];
 let className = 'g-sidenav-pinned';
+
+document.addEventListener('livewire:navigated', () => {
+    iconNavbarSidenav = document.getElementById('iconNavbarSidenav');
+    iconSidenav = document.getElementById('iconSidenav');
+    sidenav = document.getElementById('sidenav-main');
+    body = document.getElementsByTagName('body')[0];
+
+    if (iconNavbarSidenav) {
+        iconNavbarSidenav.addEventListener("click", toggleSidenav);
+    }
+
+    if (iconSidenav) {
+        iconSidenav.addEventListener("click", toggleSidenav);
+    }
+});
 
 if (iconNavbarSidenav) {
   iconNavbarSidenav.addEventListener("click", toggleSidenav);

@@ -3,5 +3,15 @@
     "/js/registration.js": "/js/registration.js",
     "/css/app.css": "/css/app.css",
     "/assets/css/soft-ui-dashboard.css": "/assets/css/soft-ui-dashboard.css",
-    "/assets/js/soft-ui-dashboard.min.js": "/assets/js/soft-ui-dashboard.min.js"
+    "/assets/js/soft-ui-dashboard.min.js": "/assets/js/soft-ui-dashboard.min.js",
+    "/js/tinymce/.npmignore": "/js/tinymce/.npmignore",
+    "/js/tinymce/bower.json": "/js/tinymce/bower.json",
+    "/js/tinymce/CHANGELOG.md": "/js/tinymce/CHANGELOG.md",
+    "/js/tinymce/composer.json": "/js/tinymce/composer.json",
+    "/js/tinymce/license.md": "/js/tinymce/license.md",
+    "/js/tinymce/package.json": "/js/tinymce/package.json",
+    "/js/tinymce/README.md": "/js/tinymce/README.md",
+    "/js/tinymce/tinymce.d.ts": "/js/tinymce/tinymce.d.ts",
+    "/js/tinymce/tinymce.js": "/js/tinymce/tinymce.js",
+    "/js/tinymce/tinymce.min.js": "/js/tinymce/tinymce.min.js"
 }

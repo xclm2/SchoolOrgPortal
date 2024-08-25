@@ -13,7 +13,8 @@
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.6",
-        "livewire/livewire": "^3.5"
+        "livewire/livewire": "^3.5",
+        "tinymce/tinymce": "^7.3"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^2.0",

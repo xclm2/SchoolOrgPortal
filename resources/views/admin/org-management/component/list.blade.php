@@ -1,3 +1,5 @@
+<?php /**@var \App\Livewire\Admin\Manage\Organization\Table $this */?>
+
 <div>
     <table class="table align-items-center mb-0">
         <thead>
@@ -9,9 +11,7 @@
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                 Name
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                Members
-            </th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                 Status
             </th>
@@ -27,11 +27,11 @@
         @forelse ($organizations as $org)
             <tr wire:key="org-{{$org->id}}">
                 <td class="ps-4">
-                    <p class="text-xs font-weight-bold mb-0">1</p>
+                    <p class="text-xs font-weight-bold mb-0">{{$org->id}}</p>
                 </td>
                 <td>
                     <div>
-                        <img src="{{URL::asset("storage/logo/org-$org->id.jpg")}}" class="avatar avatar-sm me-3">
+                        <img src="{{$this->getImage($org->id, 'logo')}}" class="avatar avatar-sm me-3 rounded-circle">
                     </div>
                 </td>
                 <td class="text-center">

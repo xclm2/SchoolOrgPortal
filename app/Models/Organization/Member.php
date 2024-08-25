@@ -9,6 +9,9 @@ class Member extends Model
 {
     use HasFactory;
 
+    const STATUS_ACTIVE  = 'active';
+    const STATUS_PENDING = 'pending';
+
     protected $table = 'organization_member';
     protected $fillable = [
         'organization_id',

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -33,6 +34,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'lastname',
         'email',
         'password',
         'phone',
@@ -68,7 +70,9 @@ class User extends Authenticatable
     public function getOrganization(): Organization
     {
         if ($member = $this->getMember()) {
-            return Organization::find($member->organization_id)->first();
+            return Organization::find($member->organization_id);
+        } else if ($this->role == self::ROLE_ADVISER) {
+            return Organization::where('adviser_id', $this->id)->firstOrFail();
         }
 
         return new Organization();

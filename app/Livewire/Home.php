@@ -7,16 +7,26 @@ use Livewire\Component;
 
 class Home extends Component
 {
+    public function mount()
+    {
+        if (Auth::check()) {
+            switch (Auth::user()?->role) {
+                case User::ROLE_ADVISER:
+                    return redirect('/adviser');
+                case User::ROLE_STUDENT:
+                    return redirect('/student');
+                case User::ROLE_ADMIN:
+                    return redirect('/admin');
+                default:
+
+            }
+        }
+
+        return redirect('/login');
+    }
+
     public function render()
     {
-        switch (Auth::user()?->role) {
-            case User::ROLE_ADVISER:
-            case User::ROLE_STUDENT:
-                return $this->redirect('/timeline', navigate: true);
-            case User::ROLE_ADMIN:
-                return $this->redirect('/admin', navigate: true);
-            default;
-                return $this->redirect('/login', navigate: true);
-        }
+        return view('welcome');
     }
 }

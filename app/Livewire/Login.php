@@ -26,14 +26,13 @@ class Login extends Component
             session()->regenerate();
 
             if (Auth::user()->getAttribute('role') == 'admin') {
-                return $this->redirect('/admin', navigate: true);
+                $this->redirect('/admin', navigate: true);
+                return;
             }
 
-            return $this->redirect('/', navigate: true);
-        }
-        else{
-
-            return back()->withErrors(['email'=>'Email or password invalid.']);
+            $this->redirect('/', navigate: true);
+        } else{
+            $this->addError('email', 'Invalid email or password');
         }
     }
 }

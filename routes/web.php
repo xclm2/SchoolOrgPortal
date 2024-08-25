@@ -1,17 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\OrgController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ChangePasswordController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\InfoUserController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Livewire;
 
@@ -48,17 +40,28 @@ Route::group(['middleware' => ['role:admin']], function () {
 	})->name('rtl');
 });
 
-//Route::get('/', function () {
-//    if (Auth::user()?->role == 'admin') {
-//        redirect('/admin');
-//    }
-//});
-Route::get('/', Livewire\Home::class)->name('home');
+
+Route::get('/', Livewire\Home::class);
+Route::get('/event/{id}', Livewire\Post\View::class);
 
 Route::group(['middleware' => ['role:adviser']], function () {
-    Route::get('/timeline', Livewire\Member\Timeline::class)->lazy();
-//    Route::get('/post/{id}', function ($id) {})
+    Route::prefix('adviser')->group(function () {
+        Route::get('/', Livewire\Member\Adviser\Home::class);
+        Route::get('/members', Livewire\Member\Adviser\Organization\Members::class);
+        Route::get('/calendar', Livewire\Member\Events\View\Calendar::class);
+        Route::get('/profile', Livewire\Member\Profile::class);
+    });
 });
+
+Route::group(['middleware' => ['role:student']], function () {
+    Route::prefix('member')->group(function () {
+        Route::get('/', Livewire\Member\Adviser\Home::class);
+        Route::get('/members', Livewire\Member\Adviser\Organization\Members::class);
+        Route::get('/calendar', Livewire\Member\Events\View\Calendar::class);
+        Route::get('/profile', Livewire\Member\Profile::class);
+    });
+});
+
 Route::group(['middleware' => 'guest'], function () {
 
     Route::get('/register', Livewire\Registration::class);
@@ -71,32 +74,5 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('/organizations', [App\Http\Controllers\Guest\Organization::class, 'index']);
 });
 
-//Route::get('/login', function () {
-//    return view('session/login-session');
-//})->name('login');
 
-
-
-
-//Route::get('tables', function () {
-//    return view('tables');
-//})->name('tables');
-//
-//Route::get('virtual-reality', function () {
-//    return view('virtual-reality');
-//})->name('virtual-reality');
-//
-//Route::get('static-sign-in', function () {
-//    return view('static-sign-in');
-//})->name('sign-in');
-//
-//Route::get('static-sign-up', function () {
-//    return view('static-sign-up');
-//})->name('sign-up');
-//
 Route::get('/logout', [SessionsController::class, 'destroy']);
-//Route::get('/user-profile', [InfoUserController::class, 'create']);
-//Route::post('/user-profile', [InfoUserController::class, 'store']);
-//Route::get('/login', function () {
-//    return view('dashboard');
-//})->name('sign-up');
