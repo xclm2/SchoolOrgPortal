@@ -25,7 +25,6 @@ class Create extends Component
         $attributes = $this->validate();
         $attributes['password'] = bcrypt('sample');
         $user = User::create($attributes);
-        dd($user);
     }
 
     public function rules()

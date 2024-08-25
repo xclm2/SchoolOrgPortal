@@ -14,7 +14,7 @@ return new class extends Migration
 		Schema::table('users', function (Blueprint $table) {
 			$table->string('lastname')->after('name')->nullable();
 			$table->enum('role', ['student', 'admin', 'adviser'])->default('student')->after('phone');
-			$table->bigInteger('course_id')->after('type')->nullable();
+			$table->bigInteger('course_id')->after('role')->nullable();
 		});
     }
 

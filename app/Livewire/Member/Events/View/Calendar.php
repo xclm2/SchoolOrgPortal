@@ -21,7 +21,7 @@ class Calendar extends AbstractMember
             }
 
             $data[] = [
-                'title' => $event->title . ' TEST EVENT ' . $event->id,
+                'title' => $event->title,
                 'start' => $event->start_date,
                 'end' => $endDate,
                 'className' => $className

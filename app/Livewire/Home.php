@@ -14,7 +14,7 @@ class Home extends Component
                 case User::ROLE_ADVISER:
                     return redirect('/adviser');
                 case User::ROLE_STUDENT:
-                    return redirect('/student');
+                    return redirect('/member');
                 case User::ROLE_ADMIN:
                     return redirect('/admin');
                 default:
