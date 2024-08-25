@@ -42,6 +42,11 @@ class Registration extends Component
         Auth::login($user);
         return $this->redirect('/', navigate: true);
     }
+	
+	public function getLogo($id)
+	{
+		return asset("storage/logo/org-$id.jpg");
+	}
 
     public function rules()
     {

@@ -8,7 +8,7 @@
                     </div>
                     @forelse($organizations as $organization)
                         <div class="col-lg-3 col-4">
-                            <img src="{{asset('storage/banner/images.png')}}" data-name="{{$organization->name}}" data-id="{{$organization->id}}" class="organization-item js-select-org" alt="org-logo"/>
+                            <img src="{{$this->getLogo($organization->id)}}" data-name="{{$organization->name}}" data-id="{{$organization->id}}" class="organization-item js-select-org" alt="org-logo"/>
                             <p class="text-uppercase pt-1">{{$organization->name}}</p>
                         </div>
                     @empty:
