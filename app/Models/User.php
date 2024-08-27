@@ -41,6 +41,7 @@ class User extends Authenticatable
         'location',
         'about_me',
         'role',
+        'course_id',
     ];
 
     /**

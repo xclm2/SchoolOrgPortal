@@ -52,7 +52,7 @@ class Profile extends AbstractMember
         return [
             'name' => ['required', 'max:50'],
             'lastname' => ['required', 'max:50'],
-            'phone' => 'numeric|min_digits:10|max_digits:13',
+            'phone' => 'required|numeric|digits:10',
         ];
     }
 

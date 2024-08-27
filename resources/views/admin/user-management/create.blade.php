@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header pb-0 px-3">
-        <h6 class="mb-0">{{ __('Adviser Information') }}</h6>
+        <h6 class="mb-0">{{ __('User Information') }}</h6>
     </div>
     <div class="card-body pt-4 p-3">
         <form wire:submit="save" method="POST" role="form text-left">
@@ -64,15 +64,14 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="course" class="form-control-label">{{ __('Course') }}</label>
-                        <div class="@error('course')border border-danger rounded-3 @enderror">
-                            <select wire:model="course" name="course" id="course" class="form-select">
-                                <option>Select</option>
-                                <option value="bsit">BS-IT</option>
-                                <option value="bsit">BEED</option>
-                                <option value="bsit">BSED</option>
-                                <option value="bsit">BSCRIM</option>
+                        <div class="@error('course_id')border border-danger rounded-3 @enderror">
+                            <select wire:model="course_id" id="course_id" class="form-select">
+                                <option value=""></option>
+                                @foreach($courses as $course)
+                                    <option value="{{$course->id}}" @if($course_id == $course->id) selected @endif>{{$course->name}}</option>
+                                @endforeach
                             </select>
-                            @error('course')
+                            @error('course_id')
                             <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
                         </div>
@@ -81,12 +80,14 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="phone" class="form-control-label">{{ __('Phone') }}</label>
-                        <div class="@error('phone')border border-danger rounded-3 @enderror">
-                            <input wire:model="phone" class="form-control" type="tel" placeholder="40770888444" id="phone" name="phone" value="{{ auth()->user()->phone }}">
-                            @error('phone')
-                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                            @enderror
+                        <div class="@error('phone')border border-danger rounded-3 @enderror input-group">
+                            <span class="input-group-text" id="phone_number">+63</span>
+
+                            <input wire:model="phone" class="form-control" aria-describedby="phone_number" type="number" placeholder="40770888444" id="phone" name="phone" value="{{ auth()->user()->phone }}">
                         </div>
+                        @error('phone')
+                        <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -111,4 +112,18 @@
             </div>
         </form>
     </div>
+    @script
+    <script>
+        Livewire.on('admin-created-user', () => {
+            Swal.fire({
+                title: 'Added!',
+                icon: 'success',
+                timer: 1000,
+                willClose: () => {
+                    Livewire.navigate('/admin/user')
+                }
+            });
+        });
+    </script>
+    @endscript
 </div>

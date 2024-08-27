@@ -5,14 +5,77 @@
                 <div class="card-header pb-0">
                     <div class="d-flex flex-row justify-content-between">
                         <div>
-                            <h5 class="mb-0">All Organizations</h5>
+                            <h5 class="mb-0">Organizations</h5>
                         </div>
-                        <a class="btn bg-gradient-primary btn-sm mb-0" href="organization/create" wire:navigate>+&nbsp; New Organization</a>
+                        <a class="btn bg-gradient-primary btn-sm mb-0" href="organization/create" wire:navigate>+&nbsp; Add</a>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
-                        @livewire('admin.manage.organization.table')
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    ID
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"></th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Name
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Course
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Status
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Created
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Action
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse ($organizations as $org)
+                                <tr wire:key="org-{{$org->id}}">
+                                    <td class="ps-4">
+                                        <p class="text-xs font-weight-bold mb-0">{{$org->id}}</p>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <img src="{{$this->getImage($org->id, 'logo')}}" class="avatar avatar-sm me-3 rounded-circle">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{$org->name}}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{$org->course_name}}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-xs font-weight-bold mb-0 text-uppercase">{{$org->status}}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{$org->created_at}}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{route('edit-organization', $org->id)}}"
+                                           class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Organization" wire:navigate.hover>
+                                            <i class="fas fa-user-edit text-secondary"></i>
+                                        </a>
+                                        <span><i class="cursor-pointer fas fa-trash text-danger"></i></span>
+                                    </td>
+                                </tr>
+                            @empty
+                                No Organization
+                            @endforelse
+                            </tbody>
+                        </table>
+
+                        <div class="card-footer pb-0">
+                            {{$organizations->links()}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,3 +126,10 @@
         </div>
     </div>
 </div>
+@script
+    <script>
+        document.addEventListener('livewire:navigated', () => {
+            $wire.$refesh;
+        })
+    </script>
+@endscript

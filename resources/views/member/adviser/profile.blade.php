@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header pb-0 px-3">
-        <h6 class="mb-0">{{ __('Adviser Information') }}</h6>
+        <h6 class="mb-0">{{ __('User Information') }}</h6>
     </div>
     <div class="card-body pt-4 p-3">
         <form wire:submit="save" method="POST" role="form text-left">

@@ -55,6 +55,24 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="course_id" class="form-control-label">Course</label>
+                                    <div class="">
+                                        <select wire:model="course_id" id="course_id" class="form-select">
+                                            <option value=""></option>
+                                            @foreach($courses as $course)
+                                                <option value="{{$course->id}}" @if($course_id == $course->id) selected @endif>{{$course->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('course')
+                                        <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label for="adviser" class="form-control-label">Adviser</label>
                                     <div class="input-group mb-3">
                                         <input wire:model="adviser_name" type="text" class="@error('adviser_id')border border-danger rounded-3 @enderror form-control" name="adviser_name" id="adviser" placeholder="Adviser" aria-label="Adviser">
@@ -73,6 +91,7 @@
                                 <textarea wire:model="description" class="form-control" id="about" rows="3" placeholder="Say something about yourself" name="description"></textarea>
                             </div>
                         </div>
+
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">Save Changes</button>
                         </div>
@@ -122,7 +141,7 @@
                             @empty
                                 <tr>
                                     <td colspan="4">
-                                        <p class="text-center">No Pending Members</p>
+                                        <p class="text-center">No Members</p>
                                     </td>
                                 </tr>
                             @endforelse
@@ -147,7 +166,70 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive p-0">
-                        @livewire('organization.adviserList')
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    ID
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    Photo
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Firstname
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Lastname
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Email
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Creation Date
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($advisers as $adviser)
+                                <tr>
+                                    <td class="ps-4">
+                                        <p class="text-xs font-weight-bold mb-0">{{$adviser->id}}</p>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <img src="{{$this->getImage($adviser->id, 'user')}}" class="avatar avatar-sm me-3" alt="{{$adviser->name}}"/>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{$adviser->name}} asd</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{$adviser->lastname}}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{$adviser->email}}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">{{$adviser->created_at}}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-primary btn-sm mb-0 js-select-adviser"
+                                                data-id="{{$adviser->id}}"
+                                                data-name="{{$adviser->name}} {{$adviser->lastname}}">Select
+                                        </button>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7"><p class="text-center">No available advisers</p></td>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                        <div class="card-footer pb-0">
+                            {{$advisers->links()}}
+                        </div>
                     </div>
                 </div>
             </div>

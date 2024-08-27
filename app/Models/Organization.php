@@ -27,6 +27,7 @@ class Organization extends Model
         'logo',
         'banner',
         'adviser_id',
+        'course_id',
     ];
 
     public function getLogo()

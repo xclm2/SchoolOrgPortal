@@ -12,7 +12,7 @@
                     <table class="table align-items-center mb-0">
                         <thead>
                         <tr>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Member</th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Joined</th>
                             <th class="text-secondary opacity-7"></th>
                         </tr>
@@ -23,7 +23,7 @@
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
+                                            <img src="{{$this->getAvatar($member->id)}}" class="avatar avatar-sm me-3" alt="user1">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">{{$member->name}} {{$member->lastname}}</h6>

@@ -2,10 +2,12 @@
 namespace App\Livewire\Admin\Manage\Organization;
 
 use App\Livewire\Admin\AbstractComponent;
+use App\Models\Course;
 use App\Models\Organization;
 use App\Models\Organization\Member;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
@@ -17,8 +19,9 @@ class Edit extends AbstractComponent
 
     public string $name = '';
     public string $description = '';
-    public int $adviser_id;
     public string $adviser_name = '';
+    public ?int $adviser_id;
+    public ?int $course_id;
     public $logo;
     public $banner;
 
@@ -40,10 +43,15 @@ class Edit extends AbstractComponent
     public function save()
     {
         $validated = $this->validate();
-
         $org = Organization::updateOrCreate(['id' => $this->organization->id], $validated);
+        if (! empty($validated['adviser_id'])) {
+            Organization\Member::create([
+                'user_id' => $validated['adviser_id'],
+                'organization_id' => $org->id,
+                'status' => Member::STATUS_ACTIVE
+            ]);
+        }
 
-        Organization\Member::create(['user_id' => $validated['adviser_id'], 'organization_id' => $org->id, 'status' => Member::STATUS_ACTIVE]);
         $this->_saveImages($org->id);
         $this->dispatch('$refresh');
         $this->dispatch('organization-saved');
@@ -51,7 +59,15 @@ class Edit extends AbstractComponent
 
     public function render()
     {
-        return view('admin.org-management.create', ['members' => $this->organization->getAllMembers()->paginate(10)]);
+        $users = DB::table('users')->select('users.*')
+            ->leftJoin('organization as org', 'org.adviser_id', '=', 'users.id')
+            ->whereRaw("org.adviser_id IS NULL AND users.role = '" .User::ROLE_ADVISER. "'");
+
+        return view('admin.org-management.create', [
+            'members' => $this->organization->getAllMembers()->paginate(10, ['*'], 'members'),
+            'courses' => Course::all(),
+            'advisers' => $users->paginate(10, ['*'], 'advisers')
+        ]);
     }
 
     public function rules()
@@ -59,8 +75,8 @@ class Edit extends AbstractComponent
         $rules = [
             'name' => 'required',
             'description' => 'required',
+            'course_id' => 'numeric|nullable',
             'adviser_id' => [
-                'required',
                 function (string $attribute, $value, \Closure $fail) {
                     $this->_validateAdviser($attribute, $value, $fail);
                 }
@@ -80,11 +96,15 @@ class Edit extends AbstractComponent
 
     private function _initData()
     {
-        $user = User::find($this->organization?->adviser_id);
         $this->name = $this->organization?->name ?? '';
-        $this->adviser_name = $user->getFullname() ?? '';
         $this->description = $this->organization?->description ?? '';
-        $this->adviser_id = $this->organization?->adviser_id ?? 0;
+        $this->adviser_id = $this->organization?->adviser_id;
+        $this->course_id = $this->organization?->course_id;
+        if ($this->adviser_id) {
+            $user = User::find($this->adviser_id);
+            $this->adviser_name = $user->getFullname() ?? '';
+        }
+
         $this->banner = (is_null($this->banner)) ? $this->getImage($this->organization?->id, 'banner') : $this->banner;
         $this->logo = (is_null($this->logo)) ? $this->getImage($this->organization?->id, 'logo') : $this->logo;
     }
@@ -93,7 +113,9 @@ class Edit extends AbstractComponent
     {
         $user = User::find($value);
         $org = Organization::where('adviser_id', $value);
-
+        if (empty($value)) {
+            return;
+        }
         if (is_null($user) || $user->getAttribute('role') !== 'adviser') {
             $fail('Selected user cannot be added as organization adviser');
         }

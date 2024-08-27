@@ -38,11 +38,20 @@
         </a>
       </li>
         <li class="nav-item pb-2">
-            <a class="nav-link {{ (Request::is('admin/organization') ? 'active' : '') }}" href="{{ url('admin/organization') }}" wire:navigate.hover>
+            <a class="nav-link {{ (Request::is('admin/organization') ? 'active' : '') }}" href="{{ url('admin/organization') }}" wire:navigate>
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                     <i style="font-size: 1rem;" class="fas fa-lg fa-users ps-2 pe-2 text-center text-dark {{ (Request::is('admin/organization') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>
                 </div>
                 <span class="nav-link-text ms-1">Organization</span>
+            </a>
+        </li>
+
+        <li class="nav-item pb-2">
+            <a class="nav-link {{ (Request::is('admin/course') ? 'active' : '') }}" href="{{ url('admin/course') }}" wire:navigate>
+                <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i style="font-size: 1rem;" class="fas fa-lg fa-graduation-cap ps-2 pe-2 text-center text-dark {{ (Request::is('admin/course') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>
+                </div>
+                <span class="nav-link-text ms-1">Course</span>
             </a>
         </li>
         <li class="nav-item">
@@ -53,14 +62,6 @@
                 <span class="nav-link-text ms-1">Sign Out</span>
             </a>
         </li>
-{{--        <li class="nav-item pb-2">--}}
-{{--            <a class="nav-link {{ (Request::is('course-') ? 'active' : '') }}" href="{{ url('course') }}">--}}
-{{--                <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">--}}
-{{--                    <i style="font-size: 1rem;" class="fas fa-lg fa-graduation-cap ps-2 pe-2 text-center text-dark {{ (Request::is('course') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>--}}
-{{--                </div>--}}
-{{--                <span class="nav-link-text ms-1">Course</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
     </ul>
   </div>
 </aside>

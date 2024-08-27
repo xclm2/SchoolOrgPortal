@@ -32,10 +32,10 @@
                     Email
                 </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    role
+                    Course
                 </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    Status
+                    Role
                 </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                     Creation Date
@@ -66,10 +66,10 @@
                     <p class="text-xs font-weight-bold mb-0">{{$user->email}}</p>
                 </td>
                 <td class="text-center">
-                    <p class="text-xs font-weight-bold mb-0">{{ucfirst($user->type)}}</p>
+                    <p class="text-xs font-weight-bold mb-0 text-uppercase">{{$user->course_name}}</p>
                 </td>
                 <td class="text-center">
-                    <p class="text-xs font-weight-bold mb-0">PENDING</p>
+                    <p class="text-xs font-weight-bold mb-0 text-uppercase">{{$user->role}}</p>
                 </td>
                 <td class="text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{$user->created_at}}</span>

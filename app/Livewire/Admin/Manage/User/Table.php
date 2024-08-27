@@ -13,7 +13,7 @@ class Table extends AbstractComponent
     public function render()
     {
         return view ('admin.user-management.list', [
-            'users' => User::paginate(10)
+            'users' => User::join('courses' , 'users.course_id' , '=' , 'courses.id')->selectRaw('users.*, courses.name as course_name')->orderBy('id', 'desc')->paginate(10)
         ]);
     }
 }

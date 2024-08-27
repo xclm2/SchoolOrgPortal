@@ -81,12 +81,13 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="phone" class="form-control-label">{{ __('Phone') }}</label>
-                                <div class="@error('phone')border border-danger rounded-3 @enderror">
-                                    <input wire:model="phone" class="form-control" type="tel" placeholder="40770888444" id="phone" name="phone" value="{{ $user->phone }}">
-                                    @error('phone')
-                                    <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                                    @enderror
+                                <div class="@error('phone')border border-danger rounded-3 @enderror input-group">
+                                    <span class="input-group-text" id="phone_number">+63</span>
+                                    <input wire:model="phone" class="form-control" aria-describedby="phone_number" type="number" placeholder="9077088844">
                                 </div>
+                                @error('phone')
+                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                     </div>

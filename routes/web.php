@@ -23,10 +23,11 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', Livewire\Admin\Dashboard::class);
         Route::get('user', Livewire\Admin\Manage\User::class);
+        Route::get('course', Livewire\Admin\Manage\Course::class);
         Route::get('user/create', Livewire\Admin\Manage\User\Create::class);
         Route::get('organization', Livewire\Admin\Manage\Organization::class);
-        Route::get('organization/create', Livewire\Admin\Manage\Organization\Edit::class)->lazy();
-        Route::get('organization/edit/{id}', Livewire\Admin\Manage\Organization\Edit::class)->name('edit-organization')->lazy();
+        Route::get('organization/create', Livewire\Admin\Manage\Organization\Edit::class);
+        Route::get('organization/edit/{id}', Livewire\Admin\Manage\Organization\Edit::class)->name('edit-organization');
     });
 
     Route::resource('profile', ProfileController::class);
