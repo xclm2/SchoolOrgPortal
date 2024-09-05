@@ -7,7 +7,9 @@ use App\Models\Organization;
 use App\Models\Organization\Member;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Session;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
@@ -24,6 +26,13 @@ class Edit extends AbstractComponent
     public ?int $course_id;
     public $logo;
     public $banner;
+
+    #[Session]
+    public string $FILTER_NAME = '';
+    #[Session]
+    public string $FILTER_LASTNAME = '';
+    #[Session]
+    public string $FILTER_EMAIL = '';
 
     public bool $updateMode = false;
 
@@ -59,15 +68,34 @@ class Edit extends AbstractComponent
 
     public function render()
     {
-        $users = DB::table('users')->select('users.*')
-            ->leftJoin('organization as org', 'org.adviser_id', '=', 'users.id')
-            ->whereRaw("org.adviser_id IS NULL AND users.role = '" .User::ROLE_ADVISER. "'");
+
 
         return view('admin.org-management.create', [
             'members' => $this->organization->getAllMembers()->paginate(10, ['*'], 'members'),
             'courses' => Course::all(),
-            'advisers' => $users->paginate(10, ['*'], 'advisers')
+            'advisers' => $this->advisers()->paginate(10, ['*'], 'advisers'),
         ]);
+    }
+
+    public function advisers(): Builder
+    {
+        $users = DB::table('users')->select('users.*')
+            ->leftJoin('organization as org', 'org.adviser_id', '=', 'users.id')
+            ->whereRaw("org.adviser_id IS NULL AND users.role = '" .User::ROLE_ADVISER. "'");
+
+        if ($this->FILTER_NAME) {
+            $users->where('users.name', 'like', '%' . $this->FILTER_NAME . '%');
+        }
+
+        if ($this->FILTER_LASTNAME) {
+            $users->where('users.lastname', 'like', '%' . $this->FILTER_LASTNAME . '%');
+        }
+
+        if ($this->FILTER_EMAIL) {
+            $users->where('users.email', 'like', '%' . $this->FILTER_EMAIL . '%');
+        }
+
+        return $users;
     }
 
     public function rules()

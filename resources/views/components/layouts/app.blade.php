@@ -64,8 +64,9 @@
             @endif
             {{$slot}}
         </div>
-        @include('layouts.footers.auth.footer')
     </main>
+    @include('layouts.footers.auth.footer')
+
     @livewireScripts
 
         <!--   Core JS Files   -->

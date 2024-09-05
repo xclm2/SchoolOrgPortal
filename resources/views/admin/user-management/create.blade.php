@@ -83,7 +83,7 @@
                         <div class="@error('phone')border border-danger rounded-3 @enderror input-group">
                             <span class="input-group-text" id="phone_number">+63</span>
 
-                            <input wire:model="phone" class="form-control" aria-describedby="phone_number" type="number" placeholder="40770888444" id="phone" name="phone" value="{{ auth()->user()->phone }}">
+                            <input wire:model="phone" class="form-control" aria-describedby="phone_number" maxlength="10" type="number" placeholder="40770888444" id="phone" name="phone" value="{{ auth()->user()->phone }}">
                         </div>
                         @error('phone')
                         <p class="text-danger text-xs mt-2">{{ $message }}</p>

@@ -155,7 +155,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="adviserList" tabindex="-1" role="dialog" aria-labelledby="findAdviser" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="adviserList" tabindex="-1" role="dialog" aria-labelledby="findAdviser" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -168,30 +168,39 @@
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
-                            <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    ID
-                                </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Photo
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Firstname
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Lastname
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Email
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Creation Date
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
-                            </tr>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        ID
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Photo
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Firstname
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Lastname
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Email
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Creation Date
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                                </tr>
+                                <tr class="grid-filter">
+                                    <th class="grid-filter_item"></th>
+                                    <th class="grid-filter_item"></th>
+                                    <th class="grid-filter_item"><input wire:keydown.enter="advisers" wire:model="FILTER_NAME" class="form-control form-control-sm" type="text"/></th>
+                                    <th class="grid-filter_item"><input wire:keydown.enter="advisers" wire:model="FILTER_LASTNAME" class="form-control form-control-sm" type="text"/></th>
+                                    <th class="grid-filter_item"><input wire:keydown.enter="advisers" wire:model="FILTER_EMAIL" class="form-control form-control-sm" type="text"/></th>
+                                    <th class="grid-filter_item"></th>
+                                    <th class="grid-filter_item"></th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @forelse($advisers as $adviser)
+                            @foreach($advisers as $adviser)
                                 <tr>
                                     <td class="ps-4">
                                         <p class="text-xs font-weight-bold mb-0">{{$adviser->id}}</p>
@@ -220,11 +229,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="7"><p class="text-center">No available advisers</p></td>
-                                </tr>
-                            @endforelse
+                            @endforeach
                             </tbody>
                         </table>
                         <div class="card-footer pb-0">

@@ -16,10 +16,10 @@
                             </thead>
                             <tbody>
                                 @foreach($courses as $course)
-                                    <tr>
+                                    <tr wire:key="{{$course->id}}">
                                         <td><h6 class="mb-0 text-xs">{{$course->name}}</h6></td>
                                         <td class="align-middle">
-                                            <a wire:click="edit({{$course->id}},'{{$course->name}}')" href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                            <a wire:click="edit({{$course->id}},'{{$course->name}}')" href="javascript:;" class="text-secondary font-weight-bold text-xs">
                                                 Edit
                                             </a>
                                         </td>
@@ -46,6 +46,9 @@
                             @enderror
                         </div>
                         <button class="btn btn-sm btn-outline-success">Save</button>
+                        @if ($courseID)
+                            <button class="btn btn-sm btn-outline-secondary">Cancel</button>
+                        @endif
                     </form>
                 </div>
             </div>

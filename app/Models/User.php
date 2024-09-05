@@ -10,10 +10,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Searchable;
+
     const STATUS_PENDING = 'pending';
     const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
@@ -82,5 +84,16 @@ class User extends Authenticatable
     public function getFullname()
     {
         return $this->name . ' ' . $this->lastname;
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id',
+            'name',
+            'lastname',
+            'email',
+            'role'
+        ];
     }
 }

@@ -34,4 +34,10 @@ class Course extends Component
         $this->courseID = $courseID;
         $this->name = $name;
     }
+
+    public function cancelEdit()
+    {
+        $this->courseID = null;
+        $this->name = null;
+    }
 }

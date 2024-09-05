@@ -25,3 +25,14 @@
 }
 
 .clear { clear: both; }
+
+tr.grid-filter {
+
+    th.grid-filter_item {
+        padding: 5px !important;
+    }
+
+    input, select {
+        text-align: center;
+    }
+}

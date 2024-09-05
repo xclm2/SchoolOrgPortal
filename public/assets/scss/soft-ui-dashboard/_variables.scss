@@ -53,7 +53,7 @@ $colors: (
 ) !default;
 // scss-docs-end colors-map
 
-$primary:       #cb0c9f !default;
+$primary:       $teal !default;
 $secondary:     #8392AB !default;
 $info:          #17c1e8 !default;
 $success:       #82d616 !default;
@@ -78,8 +78,8 @@ $theme-colors: (
 
 
 // Gradient colors
-$primary-gradient:            #7928CA !default;
-$primary-gradient-state:      #FF0080 !default;
+$primary-gradient:            $teal !default;
+$primary-gradient-state:      $info !default;
 
 $secondary-gradient:          #627594 !default;
 $secondary-gradient-state:    #A8B8D8 !default;
@@ -834,10 +834,10 @@ $input-border-radius-sm:                $border-radius-md !default;
 $input-border-radius-lg:                $border-radius-md !default;
 
 $input-focus-bg:                        $white !default;
-$input-focus-border-color:              #e293d3 !default;
+$input-focus-border-color:              $primary !default;
 $input-focus-color:                     $input-color !default;
-$input-focus-width:                     2px !default;
-$input-focus-box-shadow:                0 0 0 $input-focus-width #e9aede !default;
+$input-focus-width:                     1px !default;
+$input-focus-box-shadow:                0 0 0 $input-focus-width $primary !default;
 
 $input-placeholder-color:               $gray-500 !default;
 $input-plaintext-color:                 $dark !default;

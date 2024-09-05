@@ -37,7 +37,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse ($organizations as $org)
+                            @foreach ($organizations as $org)
                                 <tr wire:key="org-{{$org->id}}">
                                     <td class="ps-4">
                                         <p class="text-xs font-weight-bold mb-0">{{$org->id}}</p>
@@ -67,9 +67,7 @@
                                         <span><i class="cursor-pointer fas fa-trash text-danger"></i></span>
                                     </td>
                                 </tr>
-                            @empty
-                                No Organization
-                            @endforelse
+                            @endforeach
                             </tbody>
                         </table>
 
