@@ -26,7 +26,7 @@ class Login extends Component
             session()->regenerate();
 
             if (Auth::user()->getAttribute('role') == 'admin') {
-                $this->redirect('/admin', navigate: true);
+                $this->redirect('/admin');
                 return;
             }
 

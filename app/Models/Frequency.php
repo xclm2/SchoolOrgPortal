@@ -1,0 +1,15 @@
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Frequency extends Model
+{
+    protected $table = 'metric_frequencies';
+
+    protected $fillable = [
+        'frequency',
+        'start_date',
+        'end_date',
+    ];
+}

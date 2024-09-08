@@ -24,12 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $hour = config('app.hour');
-        $min = config('app.min');
-        $scheduledInterval = $hour !== '' ? ( ($min !== '' && $min != 0) ?  $min .' */'. $hour .' * * *' : '0 */'. $hour .' * * *') : '*/'. $min .' * * * *';
-        if(env('IS_DEMO')) {
-            $schedule->command('migrate:fresh --seed')->cron($scheduledInterval);
-        }
+        $schedule->command('metric:frequency create --daily');
+        $schedule->command('metric:reindex')->everyMinute()->withoutOverlapping();
     }
 
     /**
