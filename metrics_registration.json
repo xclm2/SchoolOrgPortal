@@ -1,0 +1,17 @@
+[
+    {
+        "title": "Users",
+        "code": "users",
+        "class": "App\\Reporting\\Metrics\\Users"
+    },
+    {
+        "title": "Total Users By Course",
+        "code": "users_by_course",
+        "class": "App\\Reporting\\Metrics\\UsersByCourse"
+    },
+    {
+        "title": "Events By Organization",
+        "code": "events_by_organization",
+        "class": "App\\Reporting\\Metrics\\Events"
+    }
+]

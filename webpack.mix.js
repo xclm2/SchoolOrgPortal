@@ -11,7 +11,11 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').js('resources/js/registration.js', 'public/js')
+mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/registration.js', 'public/js')
+    .js('resources/js/charts/organization.js', 'public/js/charts')
+    .js('resources/js/charts/usersByCourse.js', 'public/js/charts')
+    .js('resources/js/charts/events.js', 'public/js/charts')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]).minify('public/assets/js/soft-ui-dashboard.js');

@@ -1,6 +1,9 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/registration.js": "/js/registration.js",
+    "/js/charts/organization.js": "/js/charts/organization.js",
+    "/js/charts/usersByCourse.js": "/js/charts/usersByCourse.js",
+    "/js/charts/events.js": "/js/charts/events.js",
     "/css/app.css": "/css/app.css",
     "/assets/css/soft-ui-dashboard.css": "/assets/css/soft-ui-dashboard.css",
     "/assets/js/soft-ui-dashboard.min.js": "/assets/js/soft-ui-dashboard.min.js",

@@ -107,7 +107,6 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end gap-1">
-                                <button class="btn btn-md mt-4 mb-4 btn-outline-secondary js-organization-remove" type="button">Back</button>
                                 <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">Register</button>
                             </div>
                         </form>

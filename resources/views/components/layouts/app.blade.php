@@ -26,6 +26,7 @@
         <link id="pagestyle" href="{{URL::asset('/assets/css/soft-ui-dashboard.css')}}" rel="stylesheet" />
         <link id="pagestyle" href="{{URL::asset('/css/app.css')}}" rel="stylesheet" />
         <script src="{{ URL::asset('/assets/js/jQuery.js') }}" type="text/javascript"></script>
+        <script src="{{ URL::asset('/assets/js/jquery-ui.min.js') }}" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <x-head.tinymce-config/>
         @livewireStyles
@@ -64,18 +65,22 @@
             @endif
             {{$slot}}
         </div>
+        @include('layouts.footers.auth.footer')
     </main>
-    @include('layouts.footers.auth.footer')
 
     @livewireScripts
 
         <!--   Core JS Files   -->
         <script src="{{ URL::asset('/assets/js/core/popper.min.js') }}"></script>
         <script src="{{ URL::asset('/assets/js/core/bootstrap.min.js') }}" data-navigate-once></script>
-        <script src="{{ URL::asset('/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
         <script src="{{ URL::asset('/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
         <script src="{{ URL::asset('/assets/js/plugins/fullcalendar.min.js') }}"></script>
         <script src="{{ URL::asset('/assets/js/plugins/chartjs.min.js') }}"></script>
+        <script src="{{ URL::asset('/assets/js/plugins/chartjs-datalabels.min.js') }}"></script>
+        <script src="{{ URL::asset('/assets/js/plugins/chartjs-utils.min.js') }}"></script>
+        <script src="{{ URL::asset('/js/charts/organization.js') }}"></script>
+        <script src="{{ URL::asset('/js/charts/usersByCourse.js') }}"></script>
+        <script src="{{ URL::asset('/js/charts/events.js') }}"></script>
         <script src="{{ URL::asset('/assets/js/plugins/flatpickr.min.js') }}"></script>
         <script>
             var win = navigator.platform.indexOf('Win') > -1;
