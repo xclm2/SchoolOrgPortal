@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('organization_gallery', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('organization_id')->references('id')->on('organization')->onDelete('restrict');
+            $table->foreignId('organization_id')->references('id')->on('organization')->onDelete('cascade');
             $table->text('file');
             $table->timestamps();
         });

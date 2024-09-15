@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('organization_post_comment', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('organization_id')->references('id')->on('organization')->onDelete('restrict');
-            $table->foreignId('member_id')->references('id')->on('organization_member')->onDelete('restrict');
+            $table->foreignId('organization_id')->references('id')->on('organization')->onDelete('cascade');
+            $table->foreignId('member_id')->references('id')->on('organization_member')->onDelete('cascade');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->text('comment');
             $table->timestamps();

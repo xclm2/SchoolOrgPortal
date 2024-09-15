@@ -70,11 +70,15 @@ class Dashboard extends AbstractComponent
         $labels = [];
         $dataset = [];
 
-        foreach (Organization::all() as $org) {
-            $labels[] = $org->name;
+        foreach (Organization::all() as $index => $org) {
             $data = DB::table('metrics')->select('*')
                 ->where('code', '=', "events_org_$org->id")
-                ->orderByDesc('start_date')->get()->last();
+                ->orderByDesc('start_date')->get()->first();
+            if (empty($data)) {
+                continue;
+            }
+
+            $labels[$index] = $org->name;
 
             $dataset['data'][] = $data->total;
         }

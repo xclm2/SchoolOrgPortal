@@ -50,6 +50,14 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ (Request::is('adviser/organization/edit') ? 'active' : '') }}" href="{{ url('/adviser/organization/edit') }}" wire:navigate.hover>
+                    <div class="icon icon-shape icon-sm border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i style="font-size: 1rem;" class="fa-solid fa-people-group ps-2 pe-2 text-center text-dark {{ (Request::is('profile') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Organization</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ url('/logout')}}">
                     <div class="icon icon-shape icon-sm border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                          <i style="font-size: 1rem;" class="fa-solid fa-arrow-right-from-bracket ps-2 pe-2 text-center text-dark" aria-hidden="true"></i>

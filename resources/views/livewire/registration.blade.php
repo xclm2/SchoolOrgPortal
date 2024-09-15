@@ -106,8 +106,9 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-end gap-1">
+                            <div class="d-flex justify-content-between align-items-center gap-1">
                                 <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">Register</button>
+                                <a href="{{ url('login') }}">Already have an account?</a>
                             </div>
                         </form>
                     </div>

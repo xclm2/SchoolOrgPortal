@@ -1,10 +1,15 @@
 <div class="col-12 component__create-post accordion accordion-flush mt-3 rounded-3" id="createPostAccordion">
+    @if(! $this->organization->id)
+        <a href="{{url('adviser/organization/edit')}}" class="btn btn-primary">Create Organization</a>
+    @endif
     <div class="card card-frame accordion-item">
         <div class="card-header p-0 accordion-header dropdown-hover rounded" id="flush-headingOne">
-            <button wire:ignore.self class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                <i style="font-size: 1rem;" class="fa-solid fa-calendar-plus ps-2 pe-2 text-center"></i>
-                Schedule an Event
-            </button>
+            @if($this->organization->id)
+                <button wire:ignore.self class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    <i style="font-size: 1rem;" class="fa-solid fa-calendar-plus ps-2 pe-2 text-center"></i>
+                    Schedule an Event
+                </button>
+            @endif
         </div>
         <div wire:ignore.self class="card-body accordion-collapse collapse" id="flush-collapseOne" aria-labelledby="flush-headingOne" data-bs-parent="#createPostAccordion">
             <form wire:submit="save" method="POST">

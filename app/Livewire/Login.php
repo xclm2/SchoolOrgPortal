@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class Login extends Component
 {
-    public string $email = 'admin@softui.com';
+    public string $email = 'admin@bcc.com';
     public string $password = 'secret';
 
     public function render()

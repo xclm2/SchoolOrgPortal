@@ -22,7 +22,7 @@ $(function () {
         options: {
           indexAxis: 'y',
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
           plugins: {
             legend: {
               display: false

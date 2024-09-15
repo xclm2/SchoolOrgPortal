@@ -26,6 +26,7 @@ class Edit extends AbstractComponent
     public ?int $course_id;
     public $logo;
     public $banner;
+    public bool $isAdmin = true;
 
     #[Session]
     public string $FILTER_NAME = '';
@@ -68,8 +69,6 @@ class Edit extends AbstractComponent
 
     public function render()
     {
-
-
         return view('admin.org-management.create', [
             'members' => $this->organization->getAllMembers()->paginate(10, ['*'], 'members'),
             'courses' => Course::all(),

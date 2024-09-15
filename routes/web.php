@@ -51,6 +51,7 @@ Route::group(['middleware' => ['role:adviser']], function () {
         Route::get('/members', Livewire\Member\Adviser\Organization\Members::class);
         Route::get('/calendar', Livewire\Member\Events\View\Calendar::class);
         Route::get('/profile', Livewire\Member\Profile::class);
+        Route::get('/organization/edit', Livewire\Member\Adviser\Organization\Edit::class);
     });
 });
 

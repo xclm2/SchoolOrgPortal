@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('organization_post', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('organization_id')->references('id')->on('organization')->onDelete('restrict');
-            $table->foreignId('member_id')->references('id')->on('organization_member')->onDelete('restrict');
+            $table->foreignId('organization_id')->references('id')->on('organization')->onDelete('cascade');
+            $table->foreignId('member_id')->references('id')->on('organization_member')->onDelete('cascade');
             $table->enum('privacy', ['public', 'member_only'])->default('public');
             $table->enum('notify_member', ['yes','no'])->default('no');
             $table->text('post');

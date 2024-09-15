@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('organization_member', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('organization_id')->references('id')->on('organization')->onDelete('restrict');
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreignId('organization_id')->references('id')->on('organization')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('status', ['active', 'pending'])->default('active');
             $table->timestamps();
         });

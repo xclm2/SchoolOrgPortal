@@ -71,10 +71,14 @@ class User extends Authenticatable
 
     public function getOrganization(): Organization
     {
-        if ($member = $this->getMember()) {
+        if ($this->role == self::ROLE_STUDENT && $member = $this->getMember()) {
             return Organization::find($member->organization_id);
         } else if ($this->role == self::ROLE_ADVISER) {
-            return Organization::where('adviser_id', $this->id)->firstOrFail();
+            if ($organization = Organization::where('adviser_id', $this->id)->first()) {
+                return $organization;
+            }
+
+            return new Organization();
         }
 
         return new Organization();
