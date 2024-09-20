@@ -1,44 +1,35 @@
-@extends('layouts.user_type.guest')
+<div class="container-fluid organization-category">
+    <h3 class="text-center">Organizations</h3>
+    <div class="row justify-content-center gap-3">
+        @forelse($organizations as $organization)
+            <div class="col-md-5 col-lg-3 col-12 mb-3 card shadow-sm">
+                    <div class="card-body pt-3 px-2">
+                        <div class="banner d-block border-radius-md" style="background-image: url('{{$organization->getBanner()}}'); background-color: lightgray"></div>
+                        <a href="organization/{{$organization->id}}" class="d-block text-darker mt-2">
+                            <span class="card-title h5">{{$organization->name}}</span>
+                            <span class="text-muted text-secondary"><small>({{$courses[$organization->course_id] ?? 'Open'}})</small></span>
 
-@section('content')
-    <main class="main-content mt-8 organization-category">
-        <section>
-            <div class="container">
-                <div class="row">
-                    @forelse($organizations as $organization)
-                        <div class="col-md-6 mb-3">
-                            <div class="card">
-                                <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
-                                    <div class="banner d-block" style="background-image: url('{{$organization->getBanner()}}')"></div>
-                                </div>
+                        </a>
 
-                                <div class="card-body pt-2">
-                                    <a href="javascript:;" class="card-title h5 d-block text-darker">
-                                        {{$organization->name}}
-                                    </a>
-                                    <p class="card-description mb-4">
-                                        {{substr($organization->description, 0, 200)}}
-                                        @if(strlen($organization->description) > 200)
-                                            ... <a href="organization/{{$organization->id}}">see more</a>
-                                        @endif
-                                    </p>
-                                    <div class="author align-items-center">
-                                        <img src="./assets/img/kit/pro/team-2.jpg" alt="..." class="avatar shadow">
-                                        <div class="name ps-3">
-                                            <span>Mathew Glock</span>
-                                            <div class="stats">
-                                                <small>Posted on 28 February</small>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <p class="card-description mb-4">
+                            {{substr($organization->description, 0, 200)}}
+                            @if(strlen($organization->description) > 200)
+                                ... <a href="organization/{{$organization->id}}">see more</a>
+                            @endif
+                        </p>
+                        @if($organization->adviser_id)
+                            <?php $adviser = \App\Models\User::find($organization->adviser_id)?>
+                            <div class="author align-items-center">
+                                <img src="{{$this->getAvatar($adviser->id)}}" alt="{{$adviser->name}} {{$adviser->lastname}}" class="avatar shadow rounded-circle">
+                                <div class="name ps-3">
+                                    <span>{{$adviser->name}} {{$adviser->lastname}}</span>
                                 </div>
                             </div>
-                        </div>
-                    @empty
-                        <p class="lead">No Organizations Found.</p>
-                    @endforelse
-                </div>
+                        @endif
+                    </div>
             </div>
-        </section>
-    </main>
-@endsection
+        @empty
+            <p class="lead">No Organizations Found.</p>
+        @endforelse
+    </div>
+</div>

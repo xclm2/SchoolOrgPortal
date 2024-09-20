@@ -25156,6 +25156,26 @@ Docs & License: https://fullcalendar.io/
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.homepage .features {
+  gap: 15px;
+}
+.homepage .feature-item {
+  background: white;
+  border-radius: 15px;
+  padding: 15px;
+}
+.homepage .organization-event:nth-child(even) .card {
+  background-color: #3A416F;
+  color: white;
+}
+.homepage .organization-event {
+  width: 30%;
+}
+.homepage .organization-event .card {
+  height: 325px;
+  overflow: hidden;
+}
+
 .main-content {
   min-height: 90vh;
 }
@@ -25187,4 +25207,8 @@ tr.grid-filter th.grid-filter_item {
 }
 tr.grid-filter input, tr.grid-filter select {
   text-align: center;
+}
+
+.nav-item .nav-link {
+  font-size: 1rem;
 }

@@ -1,0 +1,27 @@
+.homepage {
+    .features {
+        gap: 15px;
+    }
+
+    .feature-item {
+        background: white;
+        border-radius: 15px;
+        padding: 15px;
+    }
+
+    .organization-event:nth-child(even) {
+        .card {
+            background-color: $dark-gradient-state;
+            color: white;
+        }
+    }
+
+    .organization-event {
+        width: 30%;
+
+        .card {
+            height: 325px;
+            overflow: hidden;
+        }
+    }
+}

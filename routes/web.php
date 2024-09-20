@@ -52,6 +52,7 @@ Route::group(['middleware' => ['role:adviser']], function () {
         Route::get('/calendar', Livewire\Member\Events\View\Calendar::class);
         Route::get('/profile', Livewire\Member\Profile::class);
         Route::get('/organization/edit', Livewire\Member\Adviser\Organization\Edit::class);
+        Route::get('/messages', Livewire\Member\Message::class);
     });
 });
 
@@ -65,15 +66,15 @@ Route::group(['middleware' => ['role:student']], function () {
 });
 
 Route::group(['middleware' => 'guest'], function () {
-
     Route::get('/register', Livewire\Registration::class);
     Route::get('/login', Livewire\Login::class);
+    Route::get('/organizations', Livewire\Organizations::class);
+
     Route::post('/session', [SessionsController::class, 'store']);
 	Route::get('/login/forgot-password', [ResetController::class, 'create']);
 	Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
 	Route::get('/reset-password/{token}', [ResetController::class, 'resetPass'])->name('password.reset');
 	Route::post('/reset-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
-    Route::get('/organizations', [App\Http\Controllers\Guest\Organization::class, 'index']);
 });
 
 

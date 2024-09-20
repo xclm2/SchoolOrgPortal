@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg my-3 {{ (Request::is('static-sign-up') ? 'w-100 shadow-none  navbar-transparent mt-4' : 'blur blur-rounded shadow py-2 start-0 end-0 mx4') }}">
   <div class="container-fluid {{ (Request::is('static-sign-up') ? 'container' : 'container-fluid') }}">
     <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 p-0 {{ (Request::is('static-sign-up') ? 'text-white' : '') }}" href="{{ url('dashboard') }}">
-        <img src="/images/logo.png" alt="img-blur-shadow" class="img-fluid" width="140">
+        <img src="/images/logo.png" alt="img-blur-shadow" class="img-fluid" width="150">
     </a>
     <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon mt-2">
@@ -12,21 +12,21 @@
       </span>
     </button>
     <div class="collapse navbar-collapse" id="navigation">
-      <ul class="navbar-nav mx-auto d-none">
+      <ul class="navbar-nav mx-auto">
         <li class="nav-item">
             <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="{{ url('/') }}">
-                <i class="fa fa-chart-pie opacity-6 me-1 {{ (Request::is('static-sign-up') ? '' : 'text-dark') }}"></i>
+                <i class="fa-solid fa-house opacity-6 me-1 {{ (Request::is('/') ? '' : 'text-dark') }}"></i>
                 Home
             </a>
         </li>
-        <li class="nav-item d-none">
-            <a class="nav-link me-2" href="{{ url('profile') }}">
-                <i class="fa fa-user opacity-6 me-1 {{ (Request::is('static-sign-up') ? '' : 'text-dark') }}"></i>
+        <li class="nav-item">
+            <a class="nav-link me-2" href="{{ url('organizations') }}">
+                <i class="fas fa-lg fa-people-group opacity-6 me-1 {{ (Request::is('organizations') ? '' : 'text-dark') }}"></i>
                 Organizations
             </a>
         </li>
       </ul>
-      <ul class="navbar-nav d-none">
+      <ul class="navbar-nav">
         <li class="nav-item">
           <a href="{{url('login')}}" class="btn btn-sm btn-round mb-0 me-1 bg-gradient-success">Sign In</a>
         </li>

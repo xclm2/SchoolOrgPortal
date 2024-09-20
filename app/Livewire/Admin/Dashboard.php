@@ -26,7 +26,6 @@ class Dashboard extends AbstractComponent
 
     public function render()
     {
-        $totalEvents = Organization::all()->count();
         $totalUsers  = User::all()->count();
         $events = new Organization\Post();
         $upcomingEvents = $events->getPost();

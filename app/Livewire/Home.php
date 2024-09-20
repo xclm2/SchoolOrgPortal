@@ -1,6 +1,7 @@
 <?php
 namespace App\Livewire;
 
+use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -21,12 +22,15 @@ class Home extends Component
 
             }
         }
-
-        return redirect('/login');
     }
 
     public function render()
     {
-        return view('welcome');
+        $totalUsers  = User::all()->count();
+        $events = new Organization\Post();
+        $upcomingEvents = $events->getPost();
+        return view('welcome', [
+            'upcomingEvents' => $upcomingEvents->paginate(6)
+        ]);
     }
 }

@@ -8,7 +8,6 @@ use App\Models\Organization\Member as OrganizationMember;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Registration extends Component

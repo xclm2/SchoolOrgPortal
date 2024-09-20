@@ -53,7 +53,7 @@
 
     @if(! empty($sideBar)) @include($sideBar) @endif
     <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg {{ (Request::is('rtl') ? 'overflow-hidden' : '') }}">
-        <div class="container-fluid" style="min-height: 90vh;">
+        <div class="@guest @elseguest container-fluid @endguest" style="min-height: 90vh;">
             @include($navBar)
             @if(session()->has('success'))
                 <div x-data="{ show: true}"

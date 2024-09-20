@@ -2,6 +2,8 @@
 @import "pages/registration";
 @import "pages/guest/organization";
 @import "pages/profile";
+@import "pages/home";
+
 .main-content {
     min-height: 90vh;
 }
@@ -35,4 +37,8 @@ tr.grid-filter {
     input, select {
         text-align: center;
     }
+}
+
+.nav-item .nav-link {
+    font-size: 1rem;
 }
