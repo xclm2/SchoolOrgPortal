@@ -44,7 +44,7 @@ class Create extends Component
             'email' => ['required', 'email', 'max:50', Rule::unique('users', 'email')],
             'role' => ['required'],
             'course_id' => 'numeric|required',
-            'phone' => 'numeric|min_digits:10|max_digits:10',
+            'phone' => ['required', 'numeric', 'digits:10', Rule::unique('users', 'phone')],
         ];
     }
 

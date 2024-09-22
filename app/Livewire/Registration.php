@@ -91,7 +91,7 @@ class Registration extends Component
             'email' => ['required', 'email', 'max:50', Rule::unique('users', 'email')],
             'password' => ['required', 'min:5', 'max:20'],
             'course_id' => ['required', Rule::exists('courses', 'id')],
-            'phone' => 'required|numeric|digits:10',
+            'phone' => ['required', 'numeric', 'digits:10', Rule::unique('users', 'phone')],
             'organization_id' => [
                 'required',
                 function (string $attribute, $value, \Closure $fail) {
