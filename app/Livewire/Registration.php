@@ -24,10 +24,22 @@ class Registration extends Component
     public int|string $year;
     public string $selected_org = 'Select Organization';
 
+    public function mount($organizationId = null)
+    {
+        $this->organization_id = $organizationId;
+        if (! empty($organizationId)) {
+            $organization = Organization::findOrFail($organizationId);
+            $this->selectOrg($organizationId, $organization->name);
+            if (! is_null($organization->course_id)) {
+                $this->course_id = $organization->course_id;
+            }
+        }
+    }
+
     public function render()
     {
         return view('livewire.registration', [
-            'organizations' => Organization::all(),
+            'organizations' => Organization::all()->where('status', '=', Organization::STATUS_ACTIVE),
             'courses' => Course::all(),
         ]);
     }

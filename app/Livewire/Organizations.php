@@ -2,6 +2,7 @@
 namespace App\Livewire;
 
 use App\Models\Course;
+use App\Models\Organization;
 use Livewire\Component;
 
 class Organizations extends Component
@@ -13,8 +14,8 @@ class Organizations extends Component
             $courses[$course->id] = $course->name;
         }
 
-        return view('guest.organizations.index', [
-            'organizations' => \App\Models\Organization::all(),
+        return view('guest.organization.index', [
+            'organizations' => Organization::all()->where('status', '=', Organization::STATUS_ACTIVE),
             'courses' => $courses,
         ]);
     }

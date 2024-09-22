@@ -69,6 +69,8 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', Livewire\Registration::class);
     Route::get('/login', Livewire\Login::class);
     Route::get('/organizations', Livewire\Organizations::class);
+    Route::get('/organization/{id}', Livewire\Guest\Organization\View::class);
+    Route::get('/register/organization/{organizationId?}', Livewire\Registration::class);
 
     Route::post('/session', [SessionsController::class, 'store']);
 	Route::get('/login/forgot-password', [ResetController::class, 'create']);

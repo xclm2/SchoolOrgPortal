@@ -22,6 +22,7 @@ class Edit extends AbstractComponent
     public string $name = '';
     public string $description = '';
     public string $adviser_name = '';
+    public string $status = 'active';
     public ?int $adviser_id;
     public ?int $course_id;
     public $logo;
@@ -42,6 +43,7 @@ class Edit extends AbstractComponent
         try {
             $this->organization = Organization::findOrFail($id);
             $this->updateMode = true;
+            $this->status = $this->organization->status;
             $this->_initData();
         } catch (ModelNotFoundException $e) {
             $this->organization = new Organization();
@@ -55,11 +57,10 @@ class Edit extends AbstractComponent
         $validated = $this->validate();
         $org = Organization::updateOrCreate(['id' => $this->organization->id], $validated);
         if (! empty($validated['adviser_id'])) {
-            Organization\Member::create([
-                'user_id' => $validated['adviser_id'],
-                'organization_id' => $org->id,
-                'status' => Member::STATUS_ACTIVE
-            ]);
+            Organization\Member::updateOrCreate(
+                ['organization_id' => $org->id],
+                [ 'user_id' => $validated['adviser_id'], 'status' => Member::STATUS_ACTIVE]
+            );
         }
 
         $this->_saveImages($org->id);
@@ -94,6 +95,7 @@ class Edit extends AbstractComponent
             $users->where('users.email', 'like', '%' . $this->FILTER_EMAIL . '%');
         }
 
+
         return $users;
     }
 
@@ -103,6 +105,7 @@ class Edit extends AbstractComponent
             'name' => 'required',
             'description' => 'required',
             'course_id' => 'numeric|nullable',
+            'status' => 'required|in:active,inactive',
             'adviser_id' => [
                 function (string $attribute, $value, \Closure $fail) {
                     $this->_validateAdviser($attribute, $value, $fail);

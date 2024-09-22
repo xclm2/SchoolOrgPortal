@@ -86,6 +86,24 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="status" class="form-control-label">Status</label>
+                                        <div class="">
+                                            <select wire:model="status" id="status" class="form-select text-capitalize">
+                                                <option value=""></option>
+                                                @foreach(\App\Models\Organization::STATUSES as $statusOption)
+                                                    <option value="{{$statusOption}}" @if($status == $statusOption) selected @endif>{{$statusOption}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('status')
+                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endif
                         <div class="form-group">
                             <label for="about">Description</label>
@@ -250,29 +268,27 @@
         </div>
     @endif
     @script
-    <script>
-        $(function () {
+    <script data-navigate-once>
+        document.addEventListener('livewire:navigated', () => {
             var fileupload = $(".js-update-profile-pic");
             var image = $("#imgFileUpload");
             image.click(function () {
                 fileupload.click();
             });
+
             fileupload.change(function () {
                 let imageFilePath = $(this).val().split('\\')[$(this).val().split('\\').length - 1];
                 $wire.set('logo', imageFilePath)
             });
 
-
-            @if($this->isAdmin)
-                const modal = new bootstrap.Modal('#adviserList');
-                document.querySelectorAll('.js-select-adviser').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        document.getElementById('adviser').value = this.getAttribute('data-name');
-                        $wire.set('adviser_id', this.getAttribute('data-id'));
-                        modal.hide();
-                    });
+            document.querySelectorAll('.js-select-adviser').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.getElementById('adviser').value = this.getAttribute('data-name');
+                    $wire.set('adviser_id', this.getAttribute('data-id'));
+                    $('#adviserList').modal('hide')
                 });
-            @endif
+            });
+
             Livewire.on('organization-saved', () => {
                 Swal.fire({
                     title: 'Saved!',
@@ -280,7 +296,7 @@
                     timer: 1000
                 });
             });
-        });
+        })
     </script>
     @endscript
 </div>

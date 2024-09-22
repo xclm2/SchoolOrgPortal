@@ -1,6 +1,6 @@
 <div>
-    @if(empty($posts))
-        <div class="card card-frame">
+    @if($posts->isEmpty())
+        <div class="card card-frame mt-3">
             <div class="card-body">
                 <h4 class="text-center m-3">No Events</h4>
             </div>

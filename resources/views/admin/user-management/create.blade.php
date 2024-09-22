@@ -106,6 +106,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12">
+                    <div class="form-group w-30">
+                        <label for="firstname" class="form-control-label">{{ __('Password') }}</label>
+                        <div class="@error('password')border border-danger rounded-3 @enderror">
+                            <input readonly wire:model="password" class="form-control" value="{{ auth()->user()->name }}" type="password" placeholder="Password" id="password">
+                            @error('password')
+                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Save Changes' }}</button>

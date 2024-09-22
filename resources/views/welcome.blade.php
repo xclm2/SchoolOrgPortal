@@ -45,7 +45,7 @@
                                 @endif
                             </p>
                             <p class="font-weight-bold">{{$event->name}}</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <p>{{$event->title}}</p>
                         </div>
                         <div class="card-footer">
                             <a href="organization/{{$event->organization_id}}/event/{{$event->id}}" class="link-info">Read more &nbsp;<i class="fa-solid fa-arrow-right-long"></i></a>

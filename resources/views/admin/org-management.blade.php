@@ -61,7 +61,7 @@
                                     </td>
                                     <td class="text-center">
                                         <a href="{{route('edit-organization', $org->id)}}"
-                                           class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Organization" wire:navigate.hover>
+                                           class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Organization">
                                             <i class="fas fa-user-edit text-secondary"></i>
                                         </a>
                                         <span><i class="cursor-pointer fas fa-trash text-danger"></i></span>

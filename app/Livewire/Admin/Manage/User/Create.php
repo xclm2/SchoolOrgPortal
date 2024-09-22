@@ -15,6 +15,12 @@ class Create extends Component
     public string $role;
     public string $phone;
     public $course_id;
+    public string $password;
+
+    public function mount()
+    {
+        $this->password = $this->randomPassword();
+    }
 
     public function render()
     {
@@ -24,7 +30,7 @@ class Create extends Component
     public function save()
     {
         $attributes = $this->validate();
-        $attributes['password'] = bcrypt('sample');
+        $attributes['password'] = bcrypt($this->password);
         User::create($attributes);
         $this->dispatch('$refresh');
         $this->dispatch('admin-created-user');
@@ -40,5 +46,17 @@ class Create extends Component
             'course_id' => 'numeric|required',
             'phone' => 'numeric|min_digits:10|max_digits:10',
         ];
+    }
+
+    public function randomPassword() {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+
+        return implode($pass); //turn the array into a string
     }
 }
