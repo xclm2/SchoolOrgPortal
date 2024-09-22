@@ -8,45 +8,41 @@
                 <div class="message-item d-flex gap-1 w-100">
                     <div class="avatar p-1"><img src="../assets/img/bruce-mars.jpg" alt="..." class="w-100 rounded-circle shadow-sm"></div>
                     <div class="message-container max-width-500">
-                        <p class="mb-1 px-1"><small class="font-weight-bold">Excell Rhey Bolo</small> <small class="text-muted">05:34 PM</small></p>
+                        <p class="mb-1 px-1"><small class="font-weight-bold">David Oronan</small> <small class="text-muted">05:34 PM</small></p>
                         <p class="px-3 py-1 my-auto align-content-center shadow-sm border-radius-lg">
                             Good Morning!
                             Good Morning!
                             Good Morning!Good Morning!Good Morning!Good Morning!
                             Good Morning!
                             Good Morning!Good Morning!
-                            Good Morning!
-                            Good Morning!
-                            Good Morning!
-                            Good Morning!
-                            Good Morning!
-                            Good Morning!
-                            Good Morning!
-                            Good Morning!Good Morning!
-                            Good Morning!
-                            Good Morning!
-                            Good Morning!Good Morning!Good Morning!Good Morning!Good Morning!Good Morning!Good Morning!Good Morning!Good Morning!Good Morning!Good Morning!
-                            Good Morning!Good Morning!Good Morning!Good Morning!Good Morning!Good Morning!Good Morning!Good Morning!Good Morning!
-                            Good Morning!Good Morning!Good Morning!Good Morning!
                         </p>
                     </div>
                 </div>
-                <div class="message-item mt-3 d-flex gap-1 w-100">
+                <div class="message-item d-flex gap-1 w-100 mt-3">
                     <div class="avatar p-1"><img src="../assets/img/bruce-mars.jpg" alt="..." class="w-100 rounded-circle shadow-sm"></div>
-                    <div class="message-container shadow-sm align-content-center border-radius-lg max-width-500">
-                        <p class="px-3 py-1 rounded-2 my-auto  bg-white">Good Morning!</p>
+                    <div class="message-container max-width-500">
+                        <p class="mb-1 px-1"><small class="font-weight-bold">David Oronan</small> <small class="text-muted">05:34 PM</small></p>
+                        <p class="px-3 py-1 my-auto align-content-center shadow-sm border-radius-lg">
+                            Good Morning!
+                        </p>
                     </div>
                 </div>
-                <div class="message-item mt-3 d-flex gap-1 w-100 justify-content-end">
-                    <div class="message-container shadow-sm align-content-center border-radius-lg max-width-500">
-                        <p class="px-3 py-1 rounded-2 my-auto  bg-white">Good Morning!</p>
+                <div class="message-item d-flex gap-1 w-100 mt-3 justify-content-end">
+                    <div class="message-container max-width-500">
+                        <p class="mb-1 px-1"><small class="font-weight-bold">You</small> <small class="text-muted">05:34 PM</small></p>
+                        <p class="px-3 py-1 my-auto align-content-center shadow-sm border-radius-lg">
+                            Good Morning!
+                        </p>
                     </div>
                     <div class="avatar p-1"><img src="../assets/img/bruce-mars.jpg" alt="..." class="w-100 rounded-circle shadow-sm"></div>
                 </div>
-                <div class="message-item mt-3 d-flex gap-1 w-100">
+                <div class="message-item d-flex gap-1 w-100 mt-3">
                     <div class="avatar p-1"><img src="../assets/img/bruce-mars.jpg" alt="..." class="w-100 rounded-circle shadow-sm"></div>
-                    <div class="message-container shadow-sm align-content-center border-radius-lg max-width-500">
-                        <p class="px-3 py-1 rounded-2 my-auto  bg-white">Good Morning!</p>
+                    <div class="message-container max-width-500">
+                        <p class="mb-1 px-1"><small class="font-weight-bold">Wail He</small> <small class="text-muted">05:35 PM</small></p>
+                        <p class="px-3 py-1 my-auto align-content-center shadow-sm border-radius-lg">
+                            Good Morning!
+                        </p>
                     </div>
                 </div>
             </div>

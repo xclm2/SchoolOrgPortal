@@ -20,7 +20,11 @@
                         <li><small><b>Created:</b> {{date('F d, Y', strtotime($this->organization->created_at))}}</small></li>
                     </ul>
 
-                    <a class="text-success" href="/register/organization/{{$this->organization->id}}"><i class="fa-solid text-md fa-arrow-right-to-bracket"></i> &nbsp; Join</a>
+                    @if(\Illuminate\Support\Facades\Auth::check())
+                        <a class="text-success" href="javascript:;" wire:click="join({{$this->organization}})"><i class="fa-solid text-md fa-arrow-right-to-bracket"></i> &nbsp; Join</a>
+                    @else
+                        <a class="text-success" href="/register/organization/{{$this->organization->id}}"><i class="fa-solid text-md fa-arrow-right-to-bracket"></i> &nbsp; Join</a>
+                    @endif
                 </div>
             </div>
 

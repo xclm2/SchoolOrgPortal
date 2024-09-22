@@ -62,6 +62,8 @@ Route::group(['middleware' => ['role:student']], function () {
         Route::get('/members', Livewire\Member\Adviser\Organization\Members::class);
         Route::get('/calendar', Livewire\Member\Events\View\Calendar::class);
         Route::get('/profile', Livewire\Member\Profile::class);
+        Route::get('/messages', Livewire\Member\Message::class);
+        Route::get('/organization/view/{id}', Livewire\Guest\Organization\View::class);
     });
 });
 

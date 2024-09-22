@@ -2,6 +2,7 @@
 namespace App\Livewire\Guest\Organization;
 
 use App\Models\Organization;
+use App\Models\Organization\Member as OrganizationMember;
 use App\Models\User;
 use Livewire\Component;
 
@@ -19,6 +20,15 @@ class View extends Component
     public function render()
     {
         return view('guest.organization.view', ['organization' => $this->organization, 'members' => Organization\Member::where('organization_id', $this->organization->id)->count()]);
+    }
+
+    public function join(Organization $organization)
+    {
+        if ($organization->course_id == auth()->user()->course_id || $organization->course_id === null) {
+            OrganizationMember::updateOrCreate(['user_id' => auth()->user()->id, 'organization_id' => $organization->id]);
+
+            return redirect('/');
+        }
     }
 
     public function getAvatar($userId)

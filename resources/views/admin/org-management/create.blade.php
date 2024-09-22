@@ -268,7 +268,7 @@
         </div>
     @endif
     @script
-    <script data-navigate-once>
+    <script>
         document.addEventListener('livewire:navigated', () => {
             var fileupload = $(".js-update-profile-pic");
             var image = $("#imgFileUpload");

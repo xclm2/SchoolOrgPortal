@@ -59,7 +59,7 @@ class Edit extends AbstractComponent
         if (! empty($validated['adviser_id'])) {
             Organization\Member::updateOrCreate(
                 ['organization_id' => $org->id],
-                [ 'user_id' => $validated['adviser_id'], 'status' => Member::STATUS_ACTIVE]
+                [ 'user_id' => $validated['adviser_id'], 'status' => Member::STATUS_PENDING]
             );
         }
 

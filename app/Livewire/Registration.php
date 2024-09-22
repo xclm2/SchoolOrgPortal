@@ -22,6 +22,7 @@ class Registration extends Component
     public string $phone;
     public int $course_id;
     public int|string $year;
+    public string $role = User::ROLE_STUDENT;
     public string $selected_org = 'Select Organization';
 
     public function mount($organizationId = null)
@@ -65,10 +66,12 @@ class Registration extends Component
 
         $attributes['password'] = bcrypt($attributes['password'] );
 
-
         session()->flash('success', 'Your account has been created.');
         $user = User::create($attributes);
-        OrganizationMember::create(['user_id' => $user->id, 'organization_id' => $this->organization_id]);
+        if ($this->role == User::ROLE_STUDENT) {
+            OrganizationMember::create(['user_id' => $user->id, 'organization_id' => $this->organization_id]);
+        }
+
         Auth::login($user);
         return $this->redirect('/', navigate: true);
     }
@@ -92,7 +95,9 @@ class Registration extends Component
             'password' => ['required', 'min:5', 'max:20'],
             'course_id' => ['required', Rule::exists('courses', 'id')],
             'phone' => ['required', 'numeric', 'digits:10', Rule::unique('users', 'phone')],
+            'role' => ['required', Rule::in([User::ROLE_ADVISER, User::ROLE_STUDENT])],
             'organization_id' => [
+                'exclude_if:role,' . User::ROLE_ADVISER,
                 'required',
                 function (string $attribute, $value, \Closure $fail) {
                     if (is_null(Organization::find($value))) {

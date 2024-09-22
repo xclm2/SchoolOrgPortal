@@ -1,5 +1,4 @@
-<div class="dashboard">
-
+<div class="container-fluid dashboard">
     <div class="row">
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
             <div class="card">
@@ -280,12 +279,11 @@
         </div>
         @script
             <script>
-                window.onload = function() {
-
+                document.addEventListener('livewire:navigated',  () => {
                     $('.js-users-by-course-chart').users_by_course({!! $this->userChartDataset() !!});
                     $('.js-organization-chart').organization_chart({!! $this->getChartOrganizationsDataset() !!});
                     $('.js-total-events').events({!! $this->eventsChartDataset() !!});
-                }
+                })
             </script>
         @endscript
     </div>

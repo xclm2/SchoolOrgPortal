@@ -1,6 +1,6 @@
 <div class="registration my-5 px-5">
-    <div class="row">
-        <div class="col-md-8">
+    <div class="row justify-content-center">
+        <div class="col-md-8 {{$this->role == \App\Models\User::ROLE_ADVISER ? 'd-none' : ''}}">
             <div class="organizations js-organization p-4">
                 <div class="row justify-content-center text-center">
                     <div class="col-12 mb-3">
@@ -28,7 +28,7 @@
                         <h6 class="mb-0">{{ __('Profile Information') }}</h6>
                     </div>
                     <div class="card-body">
-                        <p class="organization-selected rounded text-uppercase">
+                        <p class="organization-selected rounded text-uppercase {{$this->role == \App\Models\User::ROLE_ADVISER ? 'd-none' : ''}}">
                             <span class="font-weight-bold">{{$selected_org}}</span>
                         </p>
                         @error('organization_id')
@@ -83,6 +83,19 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="role" class="form-control-label">{{ __('Choose Account Type') }}</label>
+                                        <div class="@error('role') border border-danger rounded-3 @enderror">
+                                            <select wire:model.change="role" id="role" class="form-select text-capitalize">
+                                                <option value="{{\App\Models\User::ROLE_STUDENT}}">{{\App\Models\User::ROLE_STUDENT}}</option>
+                                                <option value="{{\App\Models\User::ROLE_ADVISER}}">{{\App\Models\User::ROLE_ADVISER}}</option>
+
+                                            </select>
+                                            @error('role')
+                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -108,7 +121,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center gap-1">
                                 <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">Register</button>
-                                <a href="{{ url('login') }}">Already have an account?</a>
+                                <a href="{{ url('login') }}">Already have an account ?</a>
                             </div>
                         </form>
                     </div>

@@ -5,10 +5,14 @@
     <div class="card card-frame accordion-item">
         <div class="card-header p-0 accordion-header dropdown-hover rounded" id="flush-headingOne">
             @if($this->organization->id)
-                <button wire:ignore.self class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    <i style="font-size: 1rem;" class="fa-solid fa-calendar-plus ps-2 pe-2 text-center"></i>
-                    Schedule an Event
-                </button>
+                @if($this->organization->status == \App\Models\Organization::STATUS_ACTIVE)
+                    <button wire:ignore.self class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <i style="font-size: 1rem;" class="fa-solid fa-calendar-plus ps-2 pe-2 text-center"></i>
+                        Schedule an Event
+                    </button>
+                @else
+                    <p class="m-0 p-3">Kindly wait for the admin to activate your organization.</p>
+                @endif
             @endif
         </div>
         <div wire:ignore.self class="card-body accordion-collapse collapse" id="flush-collapseOne" aria-labelledby="flush-headingOne" data-bs-parent="#createPostAccordion">

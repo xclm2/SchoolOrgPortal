@@ -33,3 +33,5 @@ Limitations
  - No email notification
  - Adviser cannot edit events that are already finished
  - Admin cannot edit event post
+ - Unapproved member cannot receive notifications and cannot comment to a post
+
