@@ -5,7 +5,7 @@
                 <h3 class="display-5">Welcome to <strong>Buenavista Community College</strong> Organization Portal.</h3>
                 <p class="lead">Your gateway to staying connected and engaged with school activities, events, and opportunities.</p>
                 <a class="btn btn-primary" href="register">Sign Up Now</a>
-                <button class="btn btn-dark">Explore Organizations</button>
+                <a class="btn btn-dark" href="organizations" wire:navigate>Explore Organizations</a>
             </div>
             <div class="col-lg-5 d-none d-lg-block">
                 <img src="/images/hero1.png" alt="teeest" class="img-fluid">

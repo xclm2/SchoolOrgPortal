@@ -1,10 +1,10 @@
 <div class="registration my-5 px-5">
     <div class="row justify-content-center">
-        <div class="col-md-8 {{$this->role == \App\Models\User::ROLE_ADVISER ? 'd-none' : ''}}">
-            <div class="organizations js-organization p-4">
+        <div class="col-md-7 col-lg-8 {{$this->role == \App\Models\User::ROLE_ADVISER ? 'd-none' : ''}}">
+            <div class="organizations js-organization p-4 pt-0">
                 <div class="row justify-content-center text-center">
                     <div class="col-12 mb-3">
-                        <h4 class="text-center my-3">Choose the school organization you'd like to be part of.</h4>
+                        <h4 class="text-center mb-3">Choose the school organization you'd like to be part of.</h4>
                     </div>
                     @forelse($organizations as $organization)
                         @if($organization->course_id == $course_id || $organization->course_id === null)
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5 col-lg-4">
             <div class="registration__form js-registration-form">
                 <div class="card">
                     <div class="card-header pb-0 px-3">
@@ -119,7 +119,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center gap-1">
+                            <div class="d-flex justify-content-between align-items-center gap-1 flex-lg-row flex-md-column flex-sm-row flex-wrap">
                                 <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">Register</button>
                                 <a href="{{ url('login') }}">Already have an account ?</a>
                             </div>

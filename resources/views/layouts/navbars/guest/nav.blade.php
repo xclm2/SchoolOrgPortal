@@ -15,13 +15,13 @@
             <div class="collapse navbar-collapse" id="navigation">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="{{ url('/') }}">
+                        <a wire:navigate class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="{{ url('/') }}">
                             <i class="fa-solid fa-house opacity-6 me-1 {{ (Request::is('/') ? '' : 'text-dark') }}"></i>
                             Home
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-2" href="{{ url('organizations') }}">
+                        <a wire:navigate class="nav-link me-2" href="{{ url('organizations') }}">
                             <i class="fas fa-lg fa-people-group opacity-6 me-1 {{ (Request::is('organizations') ? '' : 'text-dark') }}"></i>
                             Organizations
                         </a>
