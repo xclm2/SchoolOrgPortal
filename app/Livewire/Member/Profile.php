@@ -1,8 +1,7 @@
 <?php
 namespace App\Livewire\Member;
 
-use App\Models\Organization;
-use Illuminate\Validation\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 
 class Profile extends AbstractMember
@@ -15,6 +14,9 @@ class Profile extends AbstractMember
     public ?string $phone;
     public ?string $lastname;
     public string $currentPassword;
+    public string $new_password;
+    #[Validate('same:new_password', message: 'Please ensure both fields contain the same password.')]
+    public string $confirm_password;
 
     public function mount()
     {
@@ -59,12 +61,18 @@ class Profile extends AbstractMember
     public function changePassword()
     {
         $result = $this->validate([
-            'currentPassword' => [
-                'required',
-                function ($attribute, $value, $fail) {
-
-                }
-            ],
+            'currentPassword' => 'current_password',
+            'new_password' => ['required', 'min:5', 'max:20'],
+            'confirm_password' => ['required', 'same:new_password'],
         ]);
+
+        $user = $this->getCurrentUser();
+        $user->password = bcrypt($result['new_password']);
+        $user->save();
+
+        $this->dispatch('password-saved');
+        $this->currentPassword = '';
+        $this->new_password = '';
+        $this->confirm_password = '';
     }
 }
