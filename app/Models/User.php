@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Organization\Member as OrganizationMember;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,6 +27,12 @@ class User extends Authenticatable
         self::STATUS_PENDING,
         self::STATUS_ACTIVE,
         self::STATUS_INACTIVE,
+    ];
+
+    const ROLES = [
+        self::ROLE_ADMIN,
+        self::ROLE_STUDENT,
+        self::ROLE_ADVISER,
     ];
 
     /**
@@ -87,5 +94,14 @@ class User extends Authenticatable
     public function getFullname()
     {
         return $this->name . ' ' . $this->lastname;
+    }
+
+    public static function getUsersByRole($role): Collection
+    {
+        if (! in_array($role, self::ROLES)) {
+            throw new \InvalidArgumentException("Invalid role");
+        }
+
+        return self::where('role', $role)->get();
     }
 }

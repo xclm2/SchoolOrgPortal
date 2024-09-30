@@ -32,29 +32,10 @@
         @livewireStyles
     </head>
     <body class="g-sidenav-show  bg-gray-100 {{ (\Request::is('rtl') ? 'rtl' : (Request::is('virtual-reality') ? 'virtual-reality' : '')) }} ">
-    <?php $user = \Illuminate\Support\Facades\Auth::user(); ?>
-    <?php $navBar  = 'layouts.navbars.auth.nav'; ?>
-
-    @switch($user?->getAttribute('role'))
-        @case('admin')
-                <?php $sideBar = 'layouts.navbars.auth.sidebar'; ?>
-            @break;
-        @case('adviser')
-                <?php $sideBar = 'layouts.navbars.auth.adviser-sidebar'; ?>
-            @break;
-        @case('student')
-                <?php $sideBar = 'layouts.navbars.auth.student-sidebar'; ?>
-            @break;
-        @default
-                <?php $navBar  = 'layouts.navbars.guest.nav' ?>
-                <?php $sideBar = '' ?>
-            @break;
-    @endswitch
-
-    @if(! empty($sideBar)) @include($sideBar) @endif
+    @if(\Illuminate\Support\Facades\Auth::check()) <livewire:sidebar> @endif
     <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg {{ (Request::is('rtl') ? 'overflow-hidden' : '') }}">
         <div class="@guest @elseguest container-fluid @endguest" style="min-height: 90vh;">
-            @include($navBar)
+            <livewire:navBar>
             @if(session()->has('success'))
                 <div x-data="{ show: true}"
                      x-init="setTimeout(() => show = false, 4000)"

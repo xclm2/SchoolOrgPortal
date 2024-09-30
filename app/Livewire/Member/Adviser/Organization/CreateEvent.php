@@ -3,6 +3,9 @@ namespace App\Livewire\Member\Adviser\Organization;
 
 use App\Livewire\Member\AbstractMember;
 use App\Models\Organization;
+use App\Models\Organization\Member;
+use App\Notifications\Post;
+use Illuminate\Support\Facades\Notification;
 
 class CreateEvent extends AbstractMember
 {
@@ -20,7 +23,12 @@ class CreateEvent extends AbstractMember
         $validated['member_id'] = $this->getMember()->id;
         $validated['start_date'] = $this->start_date;
         $validated['end_date'] = $this->end_date;
-        $test = \App\Models\Organization\Post::create($validated);
+        $post = \App\Models\Organization\Post::create($validated);
+
+        $members = Member::where('organization_id', $validated['organization_id'])->get();
+        if ($members->isNotEmpty()) {
+            Notification::send($members, new Post($post));
+        }
 
         $this->post = '';
         $this->title = '';

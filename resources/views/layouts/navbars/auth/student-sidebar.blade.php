@@ -17,6 +17,9 @@
                         <i style="font-size: 1rem;" class="ni ni-bullet-list-67 ps-2 pe-2 text-center text-dark {{ (Request::is('member') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>
                     </div>
                     <span class="nav-link-text ms-1">Events</span>
+                    @if($new_posts)
+                        &nbsp; <span class="badge bg-success badge-sm badge-circle p-1 shadow-sm">+ {{$new_posts}}</span>
+                    @endif
                 </a>
             </li>
             <li class="nav-item">

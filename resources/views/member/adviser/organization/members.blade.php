@@ -20,7 +20,7 @@
                             </thead>
                             <tbody>
                             @forelse($members as $member)
-                                <tr>
+                                <tr class="@if(in_array($member->id, $new_members)) shadow-lg @endif">
                                     <td>
                                         <div class="d-flex px-2 py-1">
                                             <div>
@@ -80,7 +80,7 @@
                                 </thead>
                                 <tbody>
                                 @forelse($pending as $pendingMember)
-                                    <tr>
+                                    <tr class="@if(in_array($pendingMember->id, $new_members)) shadow-lg @endif">
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>

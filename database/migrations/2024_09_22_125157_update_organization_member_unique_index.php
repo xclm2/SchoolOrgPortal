@@ -19,9 +19,11 @@ return new class extends Migration
             $duplicatesArr['user'][] = $duplicate->user_id;
         }
 
-        DB::table('organization_member')
-            ->whereIn('organization_id', $duplicatesArr['organization'])
-            ->whereIn('user_id', $duplicatesArr['user'])->delete();
+        if (!empty($duplicatesArr)) {
+            DB::table('organization_member')
+                ->whereIn('organization_id', $duplicatesArr['organization'])
+                ->whereIn('user_id', $duplicatesArr['user'])->delete();
+        }
 
         Schema::table('organization_member', function (Blueprint $table) {
             $table->unique(['organization_id', 'user_id']);

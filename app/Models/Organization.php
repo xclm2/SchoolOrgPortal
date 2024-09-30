@@ -6,11 +6,12 @@ use App\Models\Organization\Member;
 use App\Models\Organization\Post;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 
 class Organization extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
@@ -63,5 +64,10 @@ class Organization extends Model
         return $this->hasMany(Member::class)
             ->join('users','users.id','=','organization_member.user_id')
             ->selectRaw('organization_member.created_at AS date_requested, organization_member.updated_at AS joined_at, organization_member.status, organization_member.id as member_id, users.*');
+    }
+
+    public function getAdviser()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'adviser_id')->first();
     }
 }

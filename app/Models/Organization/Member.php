@@ -2,12 +2,14 @@
 
 namespace App\Models\Organization;
 
+use App\Models\Organization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Member extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     const STATUS_ACTIVE  = 'active';
     const STATUS_PENDING = 'pending';
@@ -18,4 +20,9 @@ class Member extends Model
         'user_id',
         'status'
     ];
+
+    public function getOrganization()
+    {
+        return Organization::find($this->organization_id);
+    }
 }

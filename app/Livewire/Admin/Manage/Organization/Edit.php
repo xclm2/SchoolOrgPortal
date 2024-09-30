@@ -6,9 +6,11 @@ use App\Models\Course;
 use App\Models\Organization;
 use App\Models\Organization\Member;
 use App\Models\User;
+use App\Notifications\Organization as OrganizationNotification;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\Session;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -64,6 +66,10 @@ class Edit extends AbstractComponent
         }
 
         $this->_saveImages($org->id);
+        if ($org->wasRecentlyCreated) {
+            Notification::send(User::getUsersByRole('admin'), new OrganizationNotification($org));
+            $this->dispatch('refreshSidebar');
+        }
         $this->dispatch('$refresh');
         $this->dispatch('organization-saved');
     }

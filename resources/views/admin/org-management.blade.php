@@ -1,4 +1,4 @@
-<div>
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="card mb-4 mx-4">
@@ -38,7 +38,8 @@
                             </thead>
                             <tbody>
                             @foreach ($organizations as $org)
-                                <tr wire:key="org-{{$org->id}}">
+
+                                <tr wire:key="org-{{$org->id}}" class="@if(in_array($org->id, $new_organizations)) shadow-lg @endif;">
                                     <td class="ps-4">
                                         <p class="text-xs font-weight-bold mb-0">{{$org->id}}</p>
                                     </td>

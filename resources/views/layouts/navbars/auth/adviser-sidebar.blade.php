@@ -32,6 +32,9 @@
                         <i style="font-size: 1rem;" class="fa-solid fa-users ps-2 pe-2 text-center text-dark {{ (Request::is('/adviser/members') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>
                     </div>
                     <span class="nav-link-text ms-1">Members</span>
+                    @if($new_members_count)
+                        &nbsp; <span class="badge bg-success badge-sm badge-circle p-1 shadow-sm">+ {{$new_members_count}}</span>
+                    @endif
                 </a>
             </li>
             <li class="nav-item">

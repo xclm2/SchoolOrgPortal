@@ -6,7 +6,9 @@ use App\Models\Course;
 use App\Models\Organization;
 use App\Models\Organization\Member as OrganizationMember;
 use App\Models\User;
+use App\Notifications\Organization\NewMember;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -69,7 +71,10 @@ class Registration extends Component
         session()->flash('success', 'Your account has been created.');
         $user = User::create($attributes);
         if ($this->role == User::ROLE_STUDENT) {
-            OrganizationMember::create(['user_id' => $user->id, 'organization_id' => $this->organization_id]);
+            $newMember = OrganizationMember::create(['user_id' => $user->id, 'organization_id' => $this->organization_id]);
+            /** @var Organization $organization */
+            $organization = Organization::findOrFail($this->organization_id);
+            Notification::send($organization->getAdviser(), new NewMember($newMember));
         }
 
         Auth::login($user);
