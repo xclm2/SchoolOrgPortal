@@ -28,6 +28,7 @@
         <script src="{{ URL::asset('/assets/js/jQuery.js') }}" type="text/javascript"></script>
         <script src="{{ URL::asset('/assets/js/jquery-ui.min.js') }}" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
         <x-head.tinymce-config/>
         @livewireStyles
     </head>

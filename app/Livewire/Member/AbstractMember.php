@@ -63,4 +63,13 @@ abstract class AbstractMember extends Component
     {
         return $this->getCurrentUser()?->role == User::ROLE_ADVISER;
     }
+
+    public function broadcastMessageOn(): bool|string
+    {
+        if ($orgId = $this->getOrganization()->id) {
+            return "organization_message_$orgId";
+        }
+
+        return false;
+    }
 }
