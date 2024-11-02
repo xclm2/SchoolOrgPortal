@@ -50,8 +50,10 @@ Route::group(['middleware' => ['role:adviser']], function () {
     });
 });
 
-    Route::post('/message/send', [\App\Http\Controllers\MessagingController::class, 'broadcast']);
-    Route::post('/message/receive', [\App\Http\Controllers\MessagingController::class, 'receive']);
+Route::post('/message/send', [\App\Http\Controllers\MessagingController::class, 'broadcast']);
+Route::post('/message/receive', [\App\Http\Controllers\MessagingController::class, 'receive']);
+Route::post('/comments/send', [\App\Http\Controllers\CommentsController::class, 'broadcast']);
+Route::post('/comments/receive', [\App\Http\Controllers\CommentsController::class, 'receive']);
 
 Route::group(['middleware' => ['role:student']], function () {
     Route::prefix('member')->group(function () {

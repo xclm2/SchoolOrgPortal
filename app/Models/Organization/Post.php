@@ -35,4 +35,9 @@ class Post extends Model
     {
         return $this->newQuery()->whereRaw('DATEDIFF(start_date, NOW()) = ?', [$days]);
     }
+
+    public function getComments()
+    {
+        return $this->hasMany('App\Models\Organization\Comment', 'post_id');
+    }
 }

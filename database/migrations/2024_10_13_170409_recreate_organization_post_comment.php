@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('organization_post_comment');
         Schema::create('organization_post_comment', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('organization_id')->references('id')->on('organization')->onDelete('cascade');
+            $table->foreignId('post_id')->references('id')->on('organization_post')->onDelete('cascade');
             $table->foreignId('member_id')->references('id')->on('organization_member')->onDelete('cascade');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->text('comment');

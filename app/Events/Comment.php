@@ -2,10 +2,10 @@
 
 namespace App\Events;
 
-class Messaging extends AbstractBroadcast
+class Comment extends AbstractBroadcast
 {
     public function broadcastAs(): string
     {
-        return 'chat';
+        return 'comment';
     }
 }
