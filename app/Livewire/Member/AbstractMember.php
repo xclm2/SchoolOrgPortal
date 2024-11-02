@@ -5,6 +5,7 @@ use App\Models\Organization;
 use App\Models\Organization\Member;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 abstract class AbstractMember extends Component

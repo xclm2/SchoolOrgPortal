@@ -6,12 +6,11 @@ use App\Models\NotificationConfig\Email;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 
-class Post extends Notification implements ShouldQueue
+class EventReminder extends Notification implements ShouldQueue
 {
-    use Queueable, Notifiable;
+    use Queueable;
 
     /**
      * Create a new notification instance.
@@ -31,21 +30,8 @@ class Post extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['mail', 'database'];
+        return ['mail'];
     }
-
-    /**
-     * Determine the notification's delivery delay.
-     *
-     * @return array<string, \Illuminate\Support\Carbon>
-     */
-//    public function withDelay(object $notifiable): array
-//    {
-//        return [
-//            'mail' => now()->addMinutes(1),
-//            'sms' => now()->addMinutes(10),
-//        ];
-//    }
 
     /**
      * Get the mail representation of the notification.
@@ -53,18 +39,13 @@ class Post extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         $eventDate = date('M d, Y', strtotime($this->post->start_date));
-        if ($this->post->end_date != null) {
-            $eventDate .= " - " . date('M d, Y', strtotime($this->post->end_date));
-        }
 
         return (new MailMessage)
             ->from($this->sender[Email::FIELD_SENDER_EMAIL], $this->sender[Email::FIELD_SENDER_NAME])
             ->greeting("Hey {$this->organization->name} Members!")
-            ->subject('New Event Alert – Check It Out!')
-            ->line('New event posted!')
-            ->line("Event: {$this->post->title}")
-            ->line("Event Date: $eventDate")
-            ->line('Click the link/button below to see more details and let us know if you’re joining. We hope to see you there!')
+            ->subject('Upcoming Event Tomorrow!')
+            ->line("Just a quick reminder that our upcoming event, {$this->post->title}, is happening tomorrow, $eventDate. We’re looking forward to having you join us for this exciting event!")
+            ->line('Click the link/button below to see more details.')
             ->action('View Event', url('/event/' . $this->post->id));
     }
 
@@ -76,8 +57,7 @@ class Post extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'post_id' => $this->post->id,
-            'user_id' => $notifiable->user_id,
+            //
         ];
     }
 }

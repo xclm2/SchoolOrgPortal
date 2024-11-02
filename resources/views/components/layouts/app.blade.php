@@ -31,6 +31,19 @@
         <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
         <x-head.tinymce-config/>
         @livewireStyles
+
+        <style>
+            .loading-page {
+                height: 100%;
+                width: 100%;
+                background: gray;
+                position: absolute;
+                z-index: 999;
+                top: 0;
+                opacity: .4;
+                display: none;
+            }
+        </style>
     </head>
     <body class="g-sidenav-show  bg-gray-100 {{ (\Request::is('rtl') ? 'rtl' : (Request::is('virtual-reality') ? 'virtual-reality' : '')) }} ">
     @if(\Illuminate\Support\Facades\Auth::check()) <livewire:sidebar> @endif
@@ -49,6 +62,7 @@
         </div>
         @include('layouts.footers.auth.footer')
     </main>
+    <div class="loading-page"></div>
 
     @livewireScripts
 
@@ -73,7 +87,15 @@
                 Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
             }
         </script>
+        <script>
+            Livewire.on('show-loading', () => {
+                $('.loading-page').show();
+            });
 
+            Livewire.on('hide-loading', () => {
+                $('.loading-page').hide();
+            });
+        </script>
         <!-- Github buttons -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->

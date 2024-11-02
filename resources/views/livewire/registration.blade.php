@@ -119,9 +119,46 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input wire:model="agree_terms" type="checkbox" id="agree_terms" class="form-check-input"/>
+                                        <label for="agree_terms" class="form-check-label">Please confirm that you agree to our terms and conditions.</label>
+                                    </div>
+                                    @error('agree_terms')
+                                        <p class="text-danger">Agree to the terms and conditions before proceeding.</p>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center gap-1 flex-lg-row flex-md-column flex-sm-row flex-wrap">
-                                <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">Register</button>
+                                <button wire:click="validateForm" type="button" class="btn bg-gradient-dark btn-md mt-4 mb-4">Register</button>
                                 <a href="{{ url('login') }}">Already have an account ?</a>
+                            </div>
+                            <!-- Modal -->
+                            <div wire:ignore.self class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="otpModalLabel">Verify Email</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>You will receive a Verification Code on your email.</p>
+                                            <input wire:model="otp_input" type="text" class="form-control form-control-sm {{! is_null($this->otpValidated) && !$this->otpValidated ? 'border-danger' : ''}}" />
+                                            @if(! is_null($this->otpValidated) && !$this->otpValidated)
+                                                <p class="text-danger">Invalid code.</p>
+                                            @endif
+                                            <p class="text-muted">OTP not received?
+                                                <a href="javascript:;" class="js-otp-resend">Resend</a>
+                                                <span class="js-otp-resend-timer">60</span>
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" wire:click="validateOtp">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -130,3 +167,34 @@
         </div>
     </div>
 </div>
+@script
+    <script>
+        let time = 10;
+        Livewire.on('verify-phone-num', () => {
+            $('#otpModal').modal('show');
+            let otpTimer = setInterval(function () {
+                if (time <= 0) {
+                    clearInterval(otpTimer);
+                    $('.js-otp-resend-timer').text('');
+                } else {
+                    $('.js-otp-resend-timer').text(time);
+                }
+                time--;
+            }, 1000);
+        });
+
+        $('.js-otp-resend').on('click', function() {
+            const lw = Livewire.find('{{$this->getId()}}');
+
+            if (time <= 0) {
+                time = 10
+                lw.dispatch('resend-otp')
+            }
+        });
+
+        Livewire.on('opt-validated', () => {
+            $('#otpModal').modal('hide');
+        });
+
+    </script>
+@endscript

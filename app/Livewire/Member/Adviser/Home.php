@@ -10,6 +10,7 @@ class Home extends AbstractMember
     use WithPagination, WithoutUrlPagination;
     public function render()
     {
+		$this->dispatch('hide-loading');
         $organization = $this->getOrganization();
         return view('events', ['organization' => $organization, 'banner' => $this->getBanner($organization->id)]);
     }

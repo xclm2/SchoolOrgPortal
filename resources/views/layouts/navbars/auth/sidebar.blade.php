@@ -62,6 +62,14 @@
                 <span class="nav-link-text ms-1">Course</span>
             </a>
         </li>
+        <li class="nav-item pb-2">
+            <a class="nav-link {{ (Request::is('admin/config/notification') ? 'active' : '') }}" href="{{ url('admin/config/notification') }}" wire:navigate>
+                <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i style="font-size: 1rem;" class="fas fa-lg fa-bell ps-2 pe-2 text-center text-dark {{ (Request::is('admin/config/notification') ? 'text-white' : 'text-dark') }} " aria-hidden="true"></i>
+                </div>
+                <span class="nav-link-text ms-1">Notification Settings</span>
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/logout')}}">
                 <div class="icon icon-shape icon-sm border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">

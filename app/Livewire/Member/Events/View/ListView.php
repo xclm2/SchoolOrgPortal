@@ -3,6 +3,8 @@ namespace App\Livewire\Member\Events\View;
 
 use App\Livewire\Member\AbstractMember;
 use App\Models\Organization;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 
 class ListView extends AbstractMember
@@ -17,8 +19,36 @@ class ListView extends AbstractMember
 
     public function render()
     {
-        return view('member.events.view.list', ['posts' => $this->organization->getPosts()->paginate(10)]);
+		
+		return view('member.events.view.list', [
+			'posts' => $this->organization->getPosts()->paginate(10),
+			'new_posts' => $this->_getNewPosts(),
+		]);
     }
+	
+	protected function _getNewPosts()
+	{
+		if (! Auth::check()) {
+			return [];
+		}
+		
+		if (! $this->getCurrentUser()->getMember()) {
+			return [];
+		}
+		$notifications = $this->getCurrentUser()->getMember()->unreadNotifications->where('read_at', null);
+		
+		$newPosts = [];
+		foreach ($notifications as $notification) {
+			if (! isset($notification->data['post_id'])) {
+				continue;
+			}
+			
+			$newPosts[] = $notification->data['post_id'];
+		}
+		
+		$notifications->markAsRead();
+		return $newPosts;
+	}
 
     public function trimString($string, $limit = 800)
     {

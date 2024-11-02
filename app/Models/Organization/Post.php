@@ -30,4 +30,9 @@ class Post extends Model
             ->whereRaw('start_date >= DATE(NOW())')
             ->orderBy('start_date', 'ASC');
     }
+
+    public function getEventsBeforeStart($days = 1)
+    {
+        return $this->newQuery()->whereRaw('DATEDIFF(start_date, NOW()) = ?', [$days]);
+    }
 }

@@ -8,7 +8,10 @@
     @else
         @foreach($posts as $post)
             <div wire:key="{{$post->id}}" class="card mt-3">
-                <div class="card-body pt-2">
+                <div class="card-body pt-2 position-relative">
+                    @if(in_array($post->id, $new_posts))
+                        <span class="badge badge-info bg-info position-absolute top-0" style="right: 0;">New</span>
+                    @endif
                     <div class="author align-items-center">
                         <img src="{{$this->getAvatar($post->user_id)}}" alt="..." class="avatar shadow rounded-circle">
                         <div class="name ps-3">

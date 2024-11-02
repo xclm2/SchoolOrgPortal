@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('metric:frequency create --daily');
         $schedule->command('metric:reindex')->everyMinute()->withoutOverlapping();
+        $schedule->command('event:reminder')->dailyAt('05:00');
     }
 
     /**

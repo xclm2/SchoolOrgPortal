@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Organization;
 use App\Models\Organization\Member as OrganizationMember;
 use App\Models\User;
+use App\Notifications\Notify;
 use App\Notifications\Organization\NewMember;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
@@ -15,71 +16,115 @@ use Livewire\Component;
 class Registration extends Component
 {
 
-    public bool $isSubmitted = false;
-    public ?int $organization_id;
-    public string $name;
-    public string $lastname;
-    public string $email;
-    public string $password;
-    public string $phone;
-    public int $course_id;
-    public int|string $year;
-    public string $role = User::ROLE_STUDENT;
-    public string $selected_org = 'Select Organization';
+	public bool $isSubmitted = false;
+	public ?int $organization_id;
+	public string $name;
+	public string $lastname;
+	public string $email;
+	public string $password;
+	public string $phone;
+	public int $course_id;
+	public int|string $year;
+	public string $role = User::ROLE_STUDENT;
+	public string $selected_org = 'Select Organization';
 
-    public function mount($organizationId = null)
-    {
-        $this->organization_id = $organizationId;
-        if (! empty($organizationId)) {
-            $organization = Organization::findOrFail($organizationId);
-            $this->selectOrg($organizationId, $organization->name);
-            if (! is_null($organization->course_id)) {
-                $this->course_id = $organization->course_id;
+	public int $agree_terms = 0;
+
+	public string $_otpCode = '';
+	private ?\DateTime $_otpGenerated = null;
+	public string $otp_input = '';
+	public bool $otpSent = false;
+	public ?bool $otpValidated = null;
+
+	protected $listeners = ['resend-otp' => 'sendOtp'];
+
+	public function mount($organizationId = null)
+	{
+		$this->organization_id = $organizationId;
+		if (!empty($organizationId)) {
+			$organization = Organization::findOrFail($organizationId);
+			$this->selectOrg($organizationId, $organization->name);
+			if (!is_null($organization->course_id)) {
+				$this->course_id = $organization->course_id;
+			}
+		}
+	}
+
+	public function render()
+	{
+		return view('livewire.registration', [
+			'organizations' => Organization::all()->where('status', '=', Organization::STATUS_ACTIVE),
+			'courses' => Course::all(),
+		]);
+	}
+
+	public function updated($property)
+	{
+		if ($property == 'course_id') {
+			$this->selected_org = 'Select Organization';
+			$this->organization_id = null;
+		}
+	}
+
+	public function selectOrg($id, $name)
+	{
+		$this->organization_id = $id;
+		$this->selected_org = $name;
+	}
+
+	public function save()
+	{
+		$this->isSubmitted = true;
+		$attributes = $this->validate();
+
+		$attributes['password'] = bcrypt($attributes['password']);
+		session()->flash('success', 'Your account has been created.');
+		$user = User::create($attributes);
+		if ($this->role == User::ROLE_STUDENT) {
+			$newMember = OrganizationMember::create(['user_id' => $user->id, 'organization_id' => $this->organization_id]);
+
+			/** @var Organization $organization */
+			$organization = Organization::findOrFail($this->organization_id);
+            if ($organization->getAdviser() != null) {
+                Notification::send($organization->getAdviser(), new NewMember($newMember));
             }
-        }
-    }
+		}
 
-    public function render()
-    {
-        return view('livewire.registration', [
-            'organizations' => Organization::all()->where('status', '=', Organization::STATUS_ACTIVE),
-            'courses' => Course::all(),
-        ]);
-    }
+		Auth::login($user);
+		$this->dispatch('show-loading');
+		return $this->redirect('/', navigate: true);
+	}
 
-    public function updated($property)
-    {
-        if ($property == 'course_id') {
-            $this->selected_org = 'Select Organization';
-            $this->organization_id = null;
-        }
-    }
+	public function validateForm()
+	{
+		$this->validate();
+		$this->sendOtp();
+	}
 
-    public function selectOrg($id, $name)
-    {
-        $this->organization_id = $id;
-        $this->selected_org = $name;
-    }
+	public function sendOtp()
+	{
+		$otp = '';
+		for ($i = 0; $i < 6; $i++) {
+			$otp .= mt_rand(0, 9); // Generates a digit between 0 and 9
+		}
 
-    public function save()
-    {
-        $this->isSubmitted = true;
-        $attributes = $this->validate();
+		$this->_otpCode = $otp;
+		$this->dispatch('verify-phone-num');
+        $notify = new Notify();
+        $notify->sendOtp($otp, $this->email, $this->phone);
+        $this->otpSent = true;
+	}
 
-        $attributes['password'] = bcrypt($attributes['password'] );
+	public function validateOtp()
+	{
+		if (! empty($this->_otpCode) && $this->_otpCode === $this->otp_input) {
+			$this->otpValidated = true;
+			$this->dispatch('opt-validated');
+			$this->save();
+		}
 
-        session()->flash('success', 'Your account has been created.');
-        $user = User::create($attributes);
-        if ($this->role == User::ROLE_STUDENT) {
-            $newMember = OrganizationMember::create(['user_id' => $user->id, 'organization_id' => $this->organization_id]);
-            /** @var Organization $organization */
-            $organization = Organization::findOrFail($this->organization_id);
-            Notification::send($organization->getAdviser(), new NewMember($newMember));
-        }
-
-        Auth::login($user);
-        return $this->redirect('/', navigate: true);
-    }
+		$this->otpValidated = false;
+	}
 
 	public function getLogo($id)
 	{
@@ -110,6 +155,7 @@ class Registration extends Component
                     }
                 }
             ],
+			'agree_terms' => ['required', Rule::in([1])]
         ];
     }
 }

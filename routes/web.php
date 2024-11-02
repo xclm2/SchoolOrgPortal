@@ -28,17 +28,10 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::get('organization', Livewire\Admin\Manage\Organization::class);
         Route::get('organization/create', Livewire\Admin\Manage\Organization\Edit::class);
         Route::get('organization/edit/{id}', Livewire\Admin\Manage\Organization\Edit::class)->name('edit-organization');
+        Route::prefix('config')->group(function () {
+            Route::get('notification', Livewire\Admin\Config\Notification::class);
+        });
     });
-
-    Route::resource('profile', ProfileController::class);
-
-	Route::get('billing', function () {
-		return view('billing');
-	})->name('billing');
-
-	Route::get('rtl', function () {
-		return view('rtl');
-	})->name('rtl');
 });
 
 
