@@ -6,6 +6,24 @@
             </div>
         </div>
     @else
+        <div class="row justify-content-end">
+            <div class="col-12">
+                <div class="dropdown">
+                    <a href="javascript:;" class="btn btn-sm btn-secondary dropdown-toggle " data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
+                        <span class="fa-regular fa-eye"></span>&nbsp;Show
+                    </a>
+                    <button class="btn btn-sm" wire:click="download"> <span class="fa-solid fa-cloud-arrow-down"></span>&nbsp;Download</button>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                        <li class="{{$show == 'all' ? 'bg-gradient-primary' : ''}}">
+                            <a class="dropdown-item" href="javascript:;" wire:click="setFilter('all')">All</a>
+                        </li>
+                        <li class="{{$show == 'completed' ? 'bg-gradient-primary' : ''}}">
+                            <a class="dropdown-item" href="javascript:;" wire:click="setFilter('completed')">Completed</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         @foreach($posts as $post)
             <div wire:key="{{$post->id}}" class="card mt-3">
                 <div class="card-body pt-2 position-relative">

@@ -26,9 +26,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Event::listen(
-            OrganizationSave::class,
-            OrganizationNotification::class,
-        );
     }
 }
