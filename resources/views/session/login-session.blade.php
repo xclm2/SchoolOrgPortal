@@ -40,7 +40,7 @@
         </div>
       </div>
         <!-- Modal -->
-        <div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordModal" aria-hidden="true">
+        <div wire:ignore.self class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordModal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -49,18 +49,21 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <form>
+                    <form wire:submit="forgotPassword">
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Email:</label>
-                                <input type="text" class="form-control" value="Creative Tim" id="recipient-name">
+                                <input wire:model="resetPassEmail" type="text" class="form-control" id="recipient-name">
+                                @error('resetPassEmail')
+                                    <p class="text-danger text-sm">{{$message}}</p>
+                                @enderror
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn bg-gradient-primary">Submit</button>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn bg-gradient-primary">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -131,7 +131,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between align-items-center gap-1 flex-lg-row flex-md-column flex-sm-row flex-wrap">
-                                <button wire:click="validateForm" type="button" class="btn bg-gradient-dark btn-md mt-4 mb-4">Register</button>
+                                <button wire:click="validateForm" type="button" class="btn bg-gradient-dark btn-md mt-4 mb-4 js-register-send-otp">Register</button>
                                 <a href="{{ url('login') }}">Already have an account ?</a>
                             </div>
                             <!-- Modal -->
@@ -191,6 +191,14 @@
                 lw.dispatch('resend-otp')
             }
         });
+
+        $('.js-register-send-otp').on('click', function () {
+            $(this).attr('disabled', 'disabled');
+        });
+
+        document.getElementById('otpModal').addEventListener('hidden.bs.modal', function (event) {
+            $('.js-register-send-otp').removeAttr('disabled');
+        })
 
         Livewire.on('opt-validated', () => {
             $('#otpModal').modal('hide');
