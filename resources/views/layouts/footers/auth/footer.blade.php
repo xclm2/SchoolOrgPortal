@@ -12,7 +12,7 @@
                         <a href="#" class="nav-link text-muted" target="_blank">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link pe-0 text-muted" target="_blank">Privacy/Security</a>
+                        <a href="privacy" class="nav-link pe-0 text-muted" target="_blank">Privacy/Security</a>
                     </li>
                 </ul>
             </div>

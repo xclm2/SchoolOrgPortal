@@ -2,7 +2,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg my-3 {{ (Request::is('static-sign-up') ? 'w-100 shadow-none  navbar-transparent mt-4' : 'blur blur-rounded shadow py-2 start-0 end-0 mx4') }}">
         <div class="container-fluid {{ (Request::is('static-sign-up') ? 'container' : 'container-fluid') }}">
-            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 p-0 {{ (Request::is('static-sign-up') ? 'text-white' : '') }}" href="{{ url('dashboard') }}">
+            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 p-0 {{ (Request::is('static-sign-up') ? 'text-white' : '') }}" href="{{ url('/') }}">
                 <img src="/images/logo.png" alt="img-blur-shadow" class="img-fluid" width="150">
             </a>
             <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">

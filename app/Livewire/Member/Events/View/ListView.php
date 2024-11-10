@@ -25,7 +25,7 @@ class ListView extends AbstractMember
         return view('member.events.view.list', [
             'posts' => $this->getPosts()->paginate(10),
             'new_posts' => $this->_getNewPosts(),
-            'is_adviser' => $this->getCurrentUser()->role == User::ROLE_ADVISER
+            'is_adviser' => Auth::check() && $this->getCurrentUser()->role == User::ROLE_ADVISER
         ]);
     }
 
