@@ -13,7 +13,7 @@ class Message extends AbstractMember
     {
         $organizationId = $this->getOrganization()->id;
         $messages = Messages::where('organization_id', $organizationId)->orderBy('created_at', 'asc')->paginate(100);
-        return view('member.message', [
+        return view('member.Message', [
             'broadcast_on' => 'bcc_org_message_' . $organizationId,
             'organization_id' => $organizationId,
             'messages' => $messages,
