@@ -56,7 +56,7 @@
             <p>We may update this policy periodically. We encourage you to review it regularly. Changes will be effective upon posting to our website.</p>
 
             <h2 class="display-6">11. Contact Information</h2>
-            <p>If you have any questions or concerns about this policy, please contact us at [Insert Contact Information].</p>
+            <p>If you have any questions or concerns about this policy, please contact us at <b>bccorganizationportal@gmail.com</b>.</p>
         </div>
     </div>
 </div>

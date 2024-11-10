@@ -21,12 +21,17 @@ class View extends Component
 
     public function render()
     {
-        $user = User::find(Auth::user()->id);
+        $memberId = 0;
+        if (Auth::check()) {
+            $user = User::findOrFail(Auth::user()->id);
+            $memberId = $user->getMember()->id;
+        }
+
         return view('livewire.post.view', [
             'post' => $this->post,
             'broadcast_on' => 'comment-' . $this->post->id,
             'post_id' => $this->post->id,
-            'member_id' => $user->getMember()->id
+            'member_id' => $memberId
         ]);
     }
 
