@@ -7,9 +7,9 @@ use Livewire\Component;
 
 class Login extends Component
 {
-    public string $email = 'admin@bcc.com';
+    public string $email = '';
     public string $resetPassEmail = '';
-    public string $password = 'secret';
+    public string $password = '';
 
     public function render()
     {
