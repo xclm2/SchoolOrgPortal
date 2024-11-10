@@ -80,3 +80,4 @@ Route::group(['middleware' => 'guest'], function () {
 
 
 Route::get('/logout', [SessionsController::class, 'destroy']);
+Route::get('privacy', Livewire\Privacy::class);

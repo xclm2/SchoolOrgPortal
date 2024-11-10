@@ -10,6 +10,8 @@ use Livewire\Component;
 
 class Home extends Component
 {
+    public string $email;
+
     public function mount()
     {
         if (Auth::check()) {
@@ -21,18 +23,21 @@ class Home extends Component
                 case User::ROLE_ADMIN:
                     return redirect('/admin');
                 default:
-
+                    break;
             }
         }
     }
-
     public function render()
     {
-        $totalUsers  = User::all()->count();
         $events = new Organization\Post();
         $upcomingEvents = $events->getPost();
         return view('welcome', [
             'upcomingEvents' => $upcomingEvents->paginate(6)
         ]);
+    }
+
+    public function forgotPassword()
+    {
+
     }
 }

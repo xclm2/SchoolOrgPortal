@@ -27,7 +27,7 @@
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                 <small class="text-muted">Forgot you password? Reset you password
-                  <a href="/login/forgot-password" class="text-info text-gradient font-weight-bold">here</a>
+                  <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="text-info text-gradient font-weight-bold">here</a>
                 </small>
                   <p class="mb-4 text-sm mx-auto">
                     Don't have an account?
@@ -39,5 +39,30 @@
           </div>
         </div>
       </div>
+        <!-- Modal -->
+        <div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Forgot Password</h5>
+                        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Email:</label>
+                                <input type="text" class="form-control" value="Creative Tim" id="recipient-name">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn bg-gradient-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
   </main>
