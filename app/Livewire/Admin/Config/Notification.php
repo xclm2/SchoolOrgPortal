@@ -24,14 +24,14 @@ class Notification extends AbstractComponent
         $this->enabled = $notificationConfig->getEnabled()?->type ?? NotificationConfig::TYPE_EMAIL;
 
         // Itexmo Config
-        $itexmo = new ItexmoConfig($notificationConfig->getItexmoConfig());
+        $itexmo = new ItexmoConfig($notificationConfig->getItexmoConfig() ?? new NotificationConfig());
         $itexmoConfig = $itexmo->loadConfig();
         $this->itexmoApiCode  = $itexmoConfig[ItexmoConfig::FIELD_APICODE];
         $this->itexmoEmail    = $itexmoConfig[ItexmoConfig::FIELD_EMAIL];
         $this->itexmoPassword = $itexmoConfig[ItexmoConfig::FIELD_PASSWORD];
 
         // Email Config
-        $email = new EmailConfig($notificationConfig->getEmailConfig());
+        $email = new EmailConfig($notificationConfig->getEmailConfig() ?? new NotificationConfig());
         $emailConfig = $email->loadConfig();
         $this->senderName  = $emailConfig['senderName'];
         $this->senderEmail = $emailConfig['senderEmail'];
