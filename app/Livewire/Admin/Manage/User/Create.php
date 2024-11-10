@@ -16,14 +16,11 @@ class Create extends Component
     public string $phone;
     public $course_id;
     public string $password;
-
-    public function mount()
-    {
-        $this->password = $this->randomPassword();
-    }
+    public User $user;
 
     public function render()
     {
+        $this->password = $this->randomPassword();
         return view('admin.user-management.create', ['courses' => Course::all()]);
     }
 

@@ -17,6 +17,7 @@
             <livewire:member.join/>
         @else
             <div class="organization__banner-preview rounded-3 shadow" style="background-image: url('{{$banner}}')"></div>
+            <hr/>
             <livewire:member.events.view.listView :$organization :lazy/>
         @endif
     @endif

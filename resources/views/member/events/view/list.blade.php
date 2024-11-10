@@ -12,7 +12,9 @@
                     <a href="javascript:;" class="btn btn-sm btn-secondary dropdown-toggle " data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
                         <span class="fa-regular fa-eye"></span>&nbsp;Show
                     </a>
-                    <button class="btn btn-sm" wire:click="download"> <span class="fa-solid fa-cloud-arrow-down"></span>&nbsp;Download</button>
+                    @if($is_adviser)
+                        <button class="btn btn-sm" wire:click="download"> <span class="fa-solid fa-cloud-arrow-down"></span>&nbsp;Download</button>
+                    @endif
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                         <li class="{{$show == 'all' ? 'bg-gradient-primary' : ''}}">
                             <a class="dropdown-item" href="javascript:;" wire:click="setFilter('all')">All</a>

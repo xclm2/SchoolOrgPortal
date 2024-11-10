@@ -1,4 +1,4 @@
-<div class="organization-create">
+<div class="container-fluid organization-create">
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -126,10 +126,59 @@
     @if($this->isAdmin)
         <div class="row mt-4">
             <div class="col-12">
+                <div class="card" id="eventsList">
+                    <div class="card-header pb-0">
+                        <h6 class="mb-0 w-100">Events
+                            <a href="javascript:;" wire:click="downloadEvents" class="font-weight-lighter float-end text-sm"><span class="fa-solid fa-cloud-arrow-down"></span> Download</a>
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap text-sm align-items-center">
+                            <span>Show:&nbsp;</span>
+                            <a wire:click="filterEvents('all')" href="javascript:;" class="p-1 border-radius-sm {{$showEvent == 'all' ? 'bg-primary' : ''}}">All</a>
+                            <a wire:click="filterEvents('completed')" href="javascript:;" class="p-1 border-radius-sm {{$showEvent == 'completed' ? 'bg-primary' : ''}}">Completed</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">ID</th>
+                                        <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Title</th>
+                                        <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Start Date</th>
+                                        <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">End Date</th>
+                                        <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Date Posted</th>
+                                        <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($events as $event)
+                                    <tr>
+                                        <td class="text-center text-xs">{{$event->id}}</td>
+                                        <td class="text-center text-xs">{{$event->title}}</td>
+                                        <td class="text-center text-xs">{{$event->start_date}}</td>
+                                        <td class="text-center text-xs">{{$event->end_date ?: $event->start_date}}</td>
+                                        <td class="text-center text-xs">{{$event->created_at}}</td>
+                                        <td class="text-center text-xs"><a class="text-primary" href="{{url('event/'.$event->id)}}" target="_blank">View</a></td>
+
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            <div class="px-3 mt-3">
+                                {{$events->links(data: ['scrollTo' => false])}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
                 <div class="card">
-                    <div class="card-header pb-0 px-3 d-flex">
-                        <h6 class="mb-0 w-100">Members</h6>
-                        <button wire:click="exportCsv" class="btn btn-sm btn-outline-secondary float-end">Export</button>
+                    <div class="card-header">
+                        <h6 class="mb-0 w-100">Members
+                            <a href="javascript:;" wire:click="exportCsv" class="font-weight-lighter float-end text-sm"><span class="fa-solid fa-cloud-arrow-down"></span> Download</a>
+                        </h6>
                     </div>
                     <div class="card-body pt-4 p-3">
                         <div class="table-responsive p-0">

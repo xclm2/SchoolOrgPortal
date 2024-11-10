@@ -7,7 +7,8 @@ $(function () {
   $.widget('xclm2.events', {
     options: {
       labels: {},
-      datasets: {}
+      datasets: {},
+      organization_ids: {},
     },
     _create: function _create() {
       var self = this;
@@ -23,6 +24,7 @@ $(function () {
           indexAxis: 'y',
           responsive: true,
           maintainAspectRatio: true,
+            organization_ids: self.options.organization_ids,
           plugins: {
             legend: {
               display: false
@@ -76,7 +78,18 @@ $(function () {
                 stepSize: 1
               }
             }
-          }
+          },
+            onClick(event, elements) {
+              let orgIds = this.config.options.organization_ids;
+              if (elements.length == 1 && orgIds.hasOwnProperty(elements[0].index)) {
+                  let redirectUrl = window.location.origin + '/admin/organization/edit/' + orgIds[elements[0].index] + '#eventsList';
+                  let linkEl = document.createElement('a');
+                  linkEl.setAttribute('target', '_blank');
+                  linkEl.setAttribute('href', redirectUrl);
+                    debugger;
+                  linkEl.click();
+              }
+            }
         }
       };
       var canvas = $(this.element).find("#total-events");

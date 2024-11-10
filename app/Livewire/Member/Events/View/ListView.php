@@ -22,10 +22,10 @@ class ListView extends AbstractMember
 
     public function render()
     {
-
         return view('member.events.view.list', [
             'posts' => $this->getPosts()->paginate(10),
             'new_posts' => $this->_getNewPosts(),
+            'is_adviser' => $this->getCurrentUser()->role == User::ROLE_ADVISER
         ]);
     }
 
@@ -36,7 +36,7 @@ class ListView extends AbstractMember
                 break;
             case 'completed':
                 return $this->organization->getPosts()
-                    ->whereRaw('(end_date IS NULL AND start_date < NOW()) OR (end_date IS NOT NULL and end_date < NOW())');
+                    ->whereRaw('((end_date IS NULL AND start_date < NOW()) OR (end_date IS NOT NULL and end_date < NOW()))');
         }
 
         return $this->organization->getPosts();

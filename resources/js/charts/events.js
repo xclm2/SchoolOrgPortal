@@ -3,6 +3,7 @@ $(function () {
       options: {
           labels: {},
           datasets: {},
+          organization_ids: {},
       },
       _create: function () {
           const self = this;
@@ -19,6 +20,7 @@ $(function () {
                   indexAxis: 'y',
                   responsive: true,
                   maintainAspectRatio: true,
+                  organization_ids: self.options.organization_ids,
                   plugins: {
                       legend: {
                           display: false,
@@ -73,8 +75,18 @@ $(function () {
                           }
                       },
                   },
+                  onClick(event, elements) {
+                      let orgIds = this.config.options.organization_ids;
+                      if (elements.length == 1 && orgIds.hasOwnProperty(elements[0].index)) {
+                          let redirectUrl = window.location.origin + '/admin/organization/edit/' + orgIds[elements[0].index] + '#eventsList';
+                          let linkEl = document.createElement('a');
+                          linkEl.setAttribute('target', '_blank');
+                          linkEl.setAttribute('href', redirectUrl);
+                          debugger;
+                          linkEl.click();
+                      }
+                  },
               },
-
           };
           let canvas = $(this.element).find("#total-events");
           new Chart(canvas.get(0).getContext("2d"), config);

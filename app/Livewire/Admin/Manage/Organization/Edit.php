@@ -40,6 +40,9 @@ class Edit extends AbstractComponent
 
     public bool $updateMode = false;
 
+    #[Session]
+    public string $showEvent = 'all';
+
     public function mount($id = null)
     {
         try {
@@ -80,6 +83,7 @@ class Edit extends AbstractComponent
             'members' => $this->organization->getAllMembers()->paginate(10, ['*'], 'members'),
             'courses' => Course::all(),
             'advisers' => $this->advisers()->paginate(10, ['*'], 'advisers'),
+            'events'  => $this->getEvents()->paginate(10, ['*'], 'events'),
         ]);
     }
 
@@ -137,7 +141,7 @@ class Edit extends AbstractComponent
         $this->adviser_id = $this->organization?->adviser_id;
         $this->course_id = $this->organization?->course_id;
         if ($this->adviser_id) {
-            $user = User::find($this->adviser_id);
+            $user = User::findOrFail($this->adviser_id);
             $this->adviser_name = $user->getFullname() ?? '';
         }
 
@@ -176,6 +180,21 @@ class Edit extends AbstractComponent
         }
     }
 
+    public function getEvents()
+    {
+        $posts = $this->organization->getPosts();
+        if ($this->showEvent == 'all') {
+            return $posts;
+        }
+
+        return $posts->whereRaw('((end_date IS NULL AND start_date < NOW()) OR (end_date IS NOT NULL and end_date < NOW()))');
+    }
+
+    public function filterEvents($filter)
+    {
+        $this->showEvent = $filter;
+    }
+
     public function exportCsv()
     {
         $filename = 'organization-' . $this->organization->id . '-members.csv';
@@ -196,6 +215,7 @@ class Edit extends AbstractComponent
                 'Organization',
                 'Name',
                 'Email',
+                'Status',
                 'Phone Number',
             ]);
 
@@ -209,7 +229,55 @@ class Edit extends AbstractComponent
                         $this->organization->name,
                         $fullName,
                         $member?->email ?? '',
+                        $member?->status,
                         $member?->phone ?? '',
+                    ];
+
+                    // Write data to a CSV file.
+                    fputcsv($handle, $data);
+                }
+            });
+
+            // Close CSV file handle
+            fclose($handle);
+        }, 200, $headers);
+    }
+
+    public function downloadEvents()
+    {
+        $orgname = str_replace(' ', '_', $this->organization->name);
+        $filename = "organization-$orgname-$this->showEvent-events.csv";
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+
+        return response()->stream(function () {
+            $handle = fopen('php://output', 'w');
+
+            // Add CSV headers
+            fputcsv($handle, [
+                'ID',
+                'Title',
+                'Start Date',
+                'End Date',
+                'Posted',
+            ]);
+
+            // Fetch and process data in chunks
+            $this->getEvents()->chunk(25, function ($posts) use ($handle) {
+                foreach ($posts as $post) {
+                    $endDate = $post->end_date != null ? $post->end_date : $post->start_date;
+                    // Extract data from each employee.
+                    $data = [
+                        $post->id,
+                        $post->title,
+                        date('Y-m-d', strtotime($post->start_date)),
+                        date('Y-m-d', strtotime($endDate)),
+                        $post->created_at
                     ];
 
                     // Write data to a CSV file.

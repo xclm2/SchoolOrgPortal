@@ -18,10 +18,12 @@ class Dashboard extends AbstractComponent
         'data' => [],
         'maxBarThickness' => 6,
     ];
+    public $eventsChart = [];
 
     public function mount()
     {
         $this->userChartDataset();
+        $this->eventsChartDataset();
     }
 
     public function render()
@@ -68,7 +70,7 @@ class Dashboard extends AbstractComponent
         $datasets = [];
         $labels = [];
         $dataset = [];
-
+        $orgIds = [];
         foreach (Organization::all() as $index => $org) {
             $data = DB::table('metrics')->select('*')
                 ->where('code', '=', "events_org_$org->id")
@@ -78,12 +80,12 @@ class Dashboard extends AbstractComponent
             }
 
             $labels[$index] = $org->name;
-
             $dataset['data'][] = $data->total;
+            $orgIds[$index] = $org->id;
         }
         $datasets[] = $dataset;
 
-        return json_encode(['datasets' => $datasets, 'labels' => array_unique($labels)]);
+        $this->eventsChart = json_encode(['datasets' => $datasets, 'labels' => $labels, 'organization_ids' => $orgIds]);
     }
 
     public function getChartOrganizationsDataset()

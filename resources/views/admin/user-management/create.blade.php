@@ -28,7 +28,7 @@
                     <div class="form-group">
                         <label for="user-email" class="form-control-label">{{ __('Email') }}</label>
                         <div class="@error('email')border border-danger rounded-3 @enderror">
-                            <input wire:model="email" class="form-control" value="{{ auth()->user()->email }}" type="email" placeholder="@example.com" id="user-email" name="email">
+                            <input wire:model="email" class="form-control" type="email" placeholder="@example.com" id="user-email" name="email">
                             @error('email')
                             <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
@@ -41,7 +41,7 @@
                     <div class="form-group">
                         <label for="firstname" class="form-control-label">{{ __('Firstname') }}</label>
                         <div class="@error('firstname')border border-danger rounded-3 @enderror">
-                            <input wire:model="name" class="form-control" value="{{ auth()->user()->name }}" type="text" placeholder="Name" id="firstname" name="name">
+                            <input wire:model="name" class="form-control" type="text" placeholder="Name" id="firstname" name="name">
                             @error('firstname')
                             <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
@@ -52,7 +52,7 @@
                     <div class="form-group">
                         <label for="lastname" class="form-control-label">{{ __('Lastname') }}</label>
                         <div class="@error('lastname')border border-danger rounded-3 @enderror">
-                            <input wire:model="lastname" class="form-control" value="{{ auth()->user()->name }}" type="text" placeholder="Lastname" id="lastname" name="name">
+                            <input wire:model="lastname" class="form-control" type="text" placeholder="Lastname" id="lastname" name="name">
                             @error('lastname')
                             <p class="text-danger text-xs mt-2">{{ $message }}</p>
                             @enderror
@@ -106,17 +106,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12">
-                    <div class="form-group w-30">
-                        <label for="firstname" class="form-control-label">{{ __('Password') }}</label>
-                        <div class="@error('password')border border-danger rounded-3 @enderror">
-                            <input readonly wire:model="password" class="form-control" value="{{ auth()->user()->name }}" type="text" placeholder="Password" id="password">
-                            @error('password')
-                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                            @enderror
+                @if(! $user?->id)
+                    <div class="col-12">
+                        <div class="form-group w-30">
+                            <label for="firstname" class="form-control-label">{{ __('Password') }}</label>
+                            <div class="@error('password')border border-danger rounded-3 @enderror">
+                                <input readonly wire:model="password" class="form-control" type="text" placeholder="Password" id="password">
+                                @error('password')
+                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Save Changes' }}</button>
@@ -128,6 +130,16 @@
         Livewire.on('admin-created-user', () => {
             Swal.fire({
                 title: 'Added!',
+                icon: 'success',
+                timer: 1000,
+                willClose: () => {
+                    Livewire.navigate('/admin/user')
+                }
+            });
+        });
+        Livewire.on('admin-updated-user', () => {
+            Swal.fire({
+                title: 'Updated!',
                 icon: 'success',
                 timer: 1000,
                 willClose: () => {
