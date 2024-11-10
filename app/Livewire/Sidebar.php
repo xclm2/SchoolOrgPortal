@@ -26,6 +26,10 @@ class Sidebar extends Component
                 $data['new_members_count'] = $notification->count();
                 break;
             case User::ROLE_STUDENT:
+                if ($user->getMember() == null) {
+                    $data['new_posts'] = 0;
+                    break;
+                }
                 $notification = $user->getMember()->notifications->where('read_at', null)->where('type', \App\Notifications\Post::class);
                 $data['new_posts'] = $notification->count();
                 break;
