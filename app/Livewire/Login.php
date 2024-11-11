@@ -10,6 +10,7 @@ class Login extends Component
     public string $email = '';
     public string $resetPassEmail = '';
     public string $password = '';
+    public bool $forgotPasswordSent = false;
 
     public function render()
     {
@@ -43,12 +44,11 @@ class Login extends Component
         $this->validate(['resetPassEmail' => 'required|email']);
         $status = Password::sendResetLink(['email' => $this->resetPassEmail]);
         if ($status === Password::RESET_LINK_SENT) {
-            $this->dispatch('reset-password-link-sent');
+            $this->forgotPasswordSent = true;
         } elseif ($status === Password::INVALID_USER) {
             $this->addError('resetPassEmail', 'Email not found');
         } else {
             $this->addError('resetPassEmail', 'Unknown error');
         }
-
     }
 }

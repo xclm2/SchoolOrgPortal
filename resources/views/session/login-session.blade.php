@@ -52,6 +52,9 @@
                     <form wire:submit="forgotPassword">
                         <div class="modal-body">
                             <div class="form-group">
+                                @if($forgotPasswordSent)
+                                    <p class="text-dark">A password reset link has been sent to your email; please check your inbox to proceed.</p>
+                                @endif
                                 <label for="recipient-name" class="col-form-label">Email:</label>
                                 <input wire:model="resetPassEmail" type="text" class="form-control" id="recipient-name">
                                 @error('resetPassEmail')

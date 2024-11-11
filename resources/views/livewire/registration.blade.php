@@ -123,7 +123,11 @@
                                 <div class="col-12">
                                     <div class="form-check">
                                         <input wire:model="agree_terms" type="checkbox" id="agree_terms" class="form-check-input"/>
-                                        <label for="agree_terms" class="form-check-label">Please confirm that you agree to our terms and conditions.</label>
+                                        <label for="agree_terms" class="form-check-label">
+                                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#termsAndConditions" class="text-info text-gradient font-weight-bold">
+                                                Please confirm that you agree to our terms and conditions.
+                                            </a>
+                                        </label>
                                     </div>
                                     @error('agree_terms')
                                         <p class="text-danger">Agree to the terms and conditions before proceeding.</p>
@@ -162,6 +166,66 @@
                             </div>
                         </form>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div wire:ignore.self class="modal fade" id="termsAndConditions" tabindex="-1" role="dialog" aria-labelledby="termsAndConditions" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div>
+                        <h1 class="display-5">Terms and Conditions</h1>
+                        <p><strong>Effective Date:</strong> {{date('F Y')}}</p>
+
+                        <p>Welcome to BCC Organization Portal (the “Website”), the official portal for [School Organization Name] members and advisers. By accessing and using this Website, you agree to abide by these Terms and Conditions. Please read them carefully. If you do not agree with any part of these Terms, please discontinue using the Website.</p>
+
+                        <h2 class="display-6">1. User Registration and Information Collection</h2>
+                        <p>1.1. By registering on the Website, you agree to provide accurate and complete information, including your first name, last name, email address, phone number, and course.</p>
+                        <p>1.2. The information collected will be used solely for the purpose of managing user accounts, notifying students about events, and enhancing user experience within the organization.</p>
+
+                        <h2 class="display-6">2. User Responsibilities and Account Management</h2>
+                        <p>2.1. Users must maintain the security of their accounts and keep their login details confidential.</p>
+                        <p>2.2. Users are responsible for updating their personal information to ensure it remains accurate and up-to-date.</p>
+                        <p>2.3. Any misuse of the Website or unauthorized access to another user’s account is strictly prohibited.</p>
+
+                        <h2 class="display-6">3. Role of Students and Advisers</h2>
+                        <p>3.1. Students and advisers can manage their accounts, view upcoming events, and receive notifications about organizational activities.</p>
+                        <p>3.2. Advisers have additional permissions, including the ability to post events, which will notify registered students about new activities or updates.</p>
+
+                        <h2 class="display-6">4. Event Posting and Notifications</h2>
+                        <p>4.1. Advisers are responsible for ensuring the accuracy and timeliness of event information posted on the Website.</p>
+                        <p>4.2. Registered students and members will receive notifications whenever a new event is posted, as well as an automatic event reminder one day before the event starts.</p>
+                        <p>4.3. The Website disclaims responsibility for users missing any events due to non-receipt of notifications.</p>
+
+                        <h2 class="display-6">5. Privacy Policy</h2>
+                        <p>5.1. The collection and processing of user data will comply with the Philippine Data Privacy Act (Republic Act No. 10173). Please refer to our Privacy Policy [link to Privacy Policy] for more information on how your data is collected, used, and protected.</p>
+                        <p>5.2. The Website will not sell or share user information with third parties, except as required by law or as necessary to fulfill the services provided.</p>
+
+                        <h2 class="display-6">6. Intellectual Property</h2>
+                        <p>6.1. All content on the Website, including text, graphics, logos, and software, is the property of [School Organization Name] and is protected by applicable copyright and trademark laws.</p>
+                        <p>6.2. Users may not reproduce, distribute, or otherwise exploit any part of the Website content without prior written permission.</p>
+
+                        <h2 class="display-6">7. Limitation of Liability</h2>
+                        <p>7.1. The Website is provided on an "as-is" and "as-available" basis. BCC Organization Portal makes no guarantees regarding the Website's availability, accuracy, or completeness.</p>
+                        <p>7.2. BCC Organization Portal disclaims all liability for any loss or damages arising from the use or inability to use the Website, including but not limited to data loss, service interruptions, and technical issues.</p>
+
+                        <h2 class="display-6">8. Termination of Access</h2>
+                        <p>8.1. BCC Organization Portal reserves the right to suspend or terminate user access to the Website at any time for violating these Terms or engaging in inappropriate or illegal behavior.</p>
+                        <p>8.2. Users may also request account deactivation by contacting the Website administrator.</p>
+
+                        <h2 class="display-6">9. Changes to Terms and Conditions</h2>
+                        <p>9.1. We reserve the right to update these Terms and Conditions at any time. Any changes will be posted on this page, and it is your responsibility to review these Terms periodically. Your continued use of the Website constitutes acceptance of the updated Terms.</p>
+
+                        <h2 class="display-6">10. Governing Law</h2>
+                        <p>These Terms and Conditions shall be governed by and construed in accordance with the laws of the Philippines. Any disputes arising from these Terms shall be subject to the exclusive jurisdiction of the courts in the Philippines.</p>
+
+                        <h2 class="display-6">11. Contact Information</h2>
+                        <p>For questions or concerns regarding these Terms, please contact us at <b>bccorganizationportal@gmail.com</b>.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
