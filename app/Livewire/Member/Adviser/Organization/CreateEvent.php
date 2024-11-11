@@ -22,8 +22,11 @@ class CreateEvent extends AbstractMember
         $validated['member_id'] = $this->getMember()->id;
         $validated['start_date'] = $this->start_date;
         $validated['end_date'] = $this->end_date;
+        /** @var Organization\Post $post */
         $post = \App\Models\Organization\Post::create($validated);
 
+        $messaging = new \App\Events\NewEvent('new_event_org_' . $validated['organization_id'], json_encode($post->toArray()));
+        broadcast($messaging)->toOthers();
         $members = $this->getOrganization()->getMembers()->pluck('id');
 
         $users = User::whereIn('id', $members);

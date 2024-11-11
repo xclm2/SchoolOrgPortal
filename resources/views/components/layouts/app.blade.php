@@ -29,6 +29,8 @@
         <script src="{{ URL::asset('/assets/js/jquery-ui.min.js') }}" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js" integrity="sha512-eiqtDDb4GUVCSqOSOTz/s/eiU4B31GrdSb17aPAA4Lv/Cjc8o+hnDvuNkgXhSI5yHuDvYkuojMaQmrB5JB31XQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
         <x-head.tinymce-config/>
         @livewireStyles
 

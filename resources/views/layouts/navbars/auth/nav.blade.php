@@ -18,5 +18,31 @@
             </ul>
         </div>
     </div>
+    @if($user->role == 'student')
+        <script data-navigate-once>
+            const pusher = new Pusher('{{config('broadcasting.connections.pusher.key')}}', {cluster: 'ap1'});
+            const channel = pusher.subscribe('{{$broadcast}}');
+
+            channel.bind('new_event', function (data) {
+                let post = JSON.parse(data.message);
+                Push.create('BCC Organization Portal ', {
+                    body: 'New Event Posted! ' + post.title,
+                    timeout: 5000
+                })
+            });
+        </script>
+    @elseif($user->role == 'adviser')
+        <script data-navigate-once>
+            const pusher = new Pusher('{{config('broadcasting.connections.pusher.key')}}', {cluster: 'ap1'});
+            const channel = pusher.subscribe('{{$new_member_broadcast}}');
+
+            channel.bind('new_member', function (data) {
+                Push.create('BCC Organization Portal ', {
+                    body: 'New Member Request!',
+                    timeout: 5000
+                })
+            });
+        </script>
+    @endif
 </nav>
 <!-- End Navbar -->

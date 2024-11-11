@@ -87,6 +87,9 @@ class Registration extends Component
 			$organization = Organization::findOrFail($this->organization_id);
             if ($organization->getAdviser() != null) {
                 Notification::send($organization->getAdviser(), new NewMember($newMember));
+
+                $messaging = new \App\Events\NewMember('new_member_org_' . $organization->id, json_encode([]));
+                broadcast($messaging)->toOthers();
             }
 		}
 
