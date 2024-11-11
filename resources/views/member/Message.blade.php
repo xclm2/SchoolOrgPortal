@@ -3,6 +3,7 @@
         <div class="card-header p-3 position-relative z-index-1" style="background-color: #fbfbfb;">
             <p class="font-weight-bold m-0">Group Message</p>
         </div>
+        @if($user->role == \App\Models\User::ROLE_ADVISER || $user->role == \App\Models\User::ROLE_STUDENT && $member->status == \App\Models\Organization\Member::STATUS_ACTIVE)
         <div class="card-body">
             <div class="message-list height-600 p-2" style="overflow-y: scroll;" id="message-list">
                 <?php $currentDate = null;?>
@@ -31,6 +32,12 @@
                 </div>
             </form>
         </div>
+        @else
+            <div class="card-body">
+                <p>This group message is only accessible to approved members.</p>
+            </div>
+        @endif
+
     </div>
 </div>
 @script

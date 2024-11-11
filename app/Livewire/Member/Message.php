@@ -9,6 +9,14 @@ use App\Models\User;
 class Message extends AbstractMember
 {
     public string $message = '';
+    public function mount()
+    {
+        $member = $this->getCurrentUser()->getMember();
+        if ($member == null) {
+            return $this->redirect('/');
+        }
+    }
+
     public function render()
     {
         $organizationId = $this->getOrganization()->id;
@@ -18,6 +26,7 @@ class Message extends AbstractMember
             'organization_id' => $organizationId,
             'messages' => $messages,
             'user' => $this->getCurrentUser(),
+            'member' => $this->getCurrentUser()->getMember(),
         ]);
     }
 
@@ -31,7 +40,7 @@ class Message extends AbstractMember
 
         if ($self) {
             $user = User::find($message->user_id);
-            $messageData['user_name'] = $user->name . ' ' . $user->lastname;
+            $messageData['user_name'] = $user == null ? "member-removed" : $user->name . ' ' . $user->lastname;
             return view ('member.message.receive', ['data' => $messageData]);
         }
 
