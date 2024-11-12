@@ -8,8 +8,8 @@
     <div class="@if(! $isLoggedIn) mt-5 @endif">
         <h1 class="display-3 font-weight-bold">{{ $post->title }}</h1>
         <ul class="list-inline text-sm">
-            <li class="list-inline-item">Begins: {{$post->start_date}}</li>
-            <li class="list-inline-item">Ends: {{$post->end_date ?? $post->start_date}}</li>
+            <li class="list-inline-item"><span class=" badge p-1 bg-info rounded-2">Begins: {{date('F d, Y', strtotime($post->start_date))}}</span></li>
+            <li class="list-inline-item"><span class=" badge p-1 bg-secondary rounded-2">Ends: {{date('F d, Y', strtotime($post->end_date ?? $post->start_date))}}</span></li>
         </ul>
         <div class="post-body">
             {!! $post->post !!}
