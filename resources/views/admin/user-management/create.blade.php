@@ -111,7 +111,7 @@
                         <div class="form-group w-30">
                             <label for="firstname" class="form-control-label">{{ __('Password') }}</label>
                             <div class="@error('password')border border-danger rounded-3 @enderror">
-                                <input readonly wire:model="password" class="form-control" type="text" placeholder="Password" id="password">
+                                <input readonly wire:model="password" class="form-control" type="password" placeholder="Password" id="password">
                                 @error('password')
                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                 @enderror

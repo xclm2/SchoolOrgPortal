@@ -48,8 +48,11 @@
 <div class="container">
 
     <div class="message">
-        <p>Verification Code: {{ $code }},</p>
-        <p>If you didn’t request this code, please ignore this message.</p>
+        <p>We have created an account for you. Please find your login details below:</p>
+        <p>Email: {{$email}}</p>
+        <p>Temporary Password: {{$password}}</p>
+        <p>For security reasons, we strongly recommend logging in and updating your password as soon as possible.</p>
+        <p>Login here: {{url('/login')}}</p>
     </div>
 
 </div>

@@ -1,9 +1,11 @@
 <?php
 namespace App\Livewire\Admin\Manage\User;
 
+use App\Mail\UserCreate;
 use App\Models\Course;
 use App\Models\Organization;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -29,6 +31,7 @@ class Create extends Component
         $attributes = $this->validate();
         $attributes['password'] = bcrypt($this->password);
         User::create($attributes);
+        Mail::to($attributes['email'])->send(new UserCreate($this->password, $attributes['email']));
         $this->dispatch('$refresh');
         $this->dispatch('admin-created-user');
     }
