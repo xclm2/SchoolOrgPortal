@@ -21,6 +21,7 @@
                     <p class="font-weight-bolder"><small>Comments:</small></p>
                     <livewire:member.events.comments :$post/>
                     @if($isLoggedIn)
+                        @if ($member_id != 0)
                         <div class="write-comment p-1 border-1 border-radius-lg border w-lg-50 w-md-60 w-100 ">
                             <form id="send-comment">
                                 @csrf
@@ -86,6 +87,7 @@
                             });
                         </script>
                         @endscript
+                        @endif
                     @else
                         <p><small>Please login to comment.</small></p>
                     @endif

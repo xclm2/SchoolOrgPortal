@@ -24,7 +24,7 @@ class View extends Component
         $memberId = 0;
         if (Auth::check()) {
             $user = User::findOrFail(Auth::user()->id);
-            $memberId = $user->getMember()->id;
+            $memberId = $user->getMember()?->id ?? 0;
         }
 
         return view('livewire.post.view', [
