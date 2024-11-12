@@ -12,7 +12,7 @@ class Create extends Component
     public string $email;
     public string $name;
     public string $lastname;
-    public string $role;
+    public string $role = 'admin';
     public string $phone;
     public $course_id;
     public string $password;
